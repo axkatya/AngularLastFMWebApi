@@ -1,0 +1,22 @@
+<div class="container__card" *ngIf="album">
+  <div class="card__itemimage" *ngIf="largeImage">
+    <img src="{{ largeImage['#text']}}" />
+  </div>
+  <div class="card__item">
+
+    <div class="card__itemname">
+      {{album.name}}
+    </div>
+    <div class="card__iteminfo">
+      <p *ngIf='isString(album.artist)'>
+        <a [routerLink]="['/artists', album.artist]">{{album.artist}} </a>
+      </p>
+      <p *ngIf="album.playcount">
+        {{album.playcount}} listeners
+      </p>
+      <p>
+        <a href={{album.url}}>Link to LastFM</a>
+      </p>
+    </div>
+  </div>
+</div>

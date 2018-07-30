@@ -1,0 +1,12 @@
+<div class="container__search">
+
+  Artists
+  <p>
+    <input #artistNameSearch placeholder="enter artist name">
+    <button class="btn" (click)="onClickSearchArtist(artistNameSearch.value)">Search Artist</button>
+  </p>
+</div>
+<app-artist-item [artist]="artist" [topTracks]="topTracks" [topAlbums]="topAlbums"></app-artist-item>
+
+
+

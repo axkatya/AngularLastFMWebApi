@@ -1,0 +1,7 @@
+<div class="container__list" *ngIf="albums">
+
+  <div *ngFor="let album of albums">
+    <app-album-item [album]="album"></app-album-item>
+  </div>
+
+</div>
