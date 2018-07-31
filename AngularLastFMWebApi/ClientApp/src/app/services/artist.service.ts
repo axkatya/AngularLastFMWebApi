@@ -14,7 +14,7 @@ export class ArtistService {
   }
 
   searchArtist(artistNameSearch: string) {
-    return this.http.get('https://localhost:44355/api/artist/' + artistNameSearch)
+    return this.http.get(environment.baseUrl + '/api/artist/' + artistNameSearch)
       .pipe(map(result => result.json() as Artist));
     //return this.http.get(environment.endPoint + '?method=artist.getinfo&artist=' +
     //    artistNameSearch +
@@ -23,7 +23,7 @@ export class ArtistService {
   }
 
   searchArtistTopTracks(artistNameSearch: string) {
-    return this.http.get('https://localhost:44355/api/toptrack/' + artistNameSearch)
+    return this.http.get(environment.baseUrl + '/api/toptrack/' + artistNameSearch)
       .pipe(map(result => result.json() as Track[]));
     //return this.http.get(environment.endPoint + '?method=artist.gettoptracks&artist=' +
     //    artistNameSearch +
@@ -32,7 +32,7 @@ export class ArtistService {
   }
 
   searchArtistTopAlbums(artistNameSearch: string) {
-    return this.http.get('https://localhost:44355/api/topalbum/' + artistNameSearch)
+    return this.http.get(environment.baseUrl + '/api/topalbum/' + artistNameSearch)
       .pipe(map(result => result.json() as Album[]));
     //return this.http.get(environment.endPoint + '?method=artist.gettopalbums&artist=' +
     //    artistNameSearch +
