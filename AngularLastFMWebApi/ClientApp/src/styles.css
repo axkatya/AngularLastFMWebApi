@@ -27,14 +27,23 @@ body {
 }
 
 .container__card {
-  background: white;
-  flex: 1 0 500px;
-  box-sizing: border-box;
-  margin: 1rem .25em;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 5px;
 }
 
 .card__item {
-  padding: 1.4em;
+  max-width: 174px;
+  word-wrap: break-word;
+  background: white;
+  text-decoration: none;
+  color: #444;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  top: 0;
+  transition: all .1s ease-in;
 }
 
 .card__itemname {
@@ -54,17 +63,16 @@ body {
 }
 
 .card__itemimage {
- 
-  display: block;
-  border: 0;
-  width: 100%;
-  height: auto;
+  background-size: cover;
+  background-position: center center;
 }
 
 .card__iteminfo {
-  font-size: 13px;
-  margin-top: 5px;
-  padding: 0;
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .tablist {
@@ -113,13 +121,3 @@ body {
     width: 100%;
   }
 }
-
-
-
-
-
-
-
-
-
-
