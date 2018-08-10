@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Track } from '../../models/track';
 
 @Component({
@@ -6,11 +6,7 @@ import { Track } from '../../models/track';
   templateUrl: './track-item.component.html',
   styleUrls: ['./track-item.component.css']
 })
-export class TrackItemComponent implements OnInit {
+export class TrackItemComponent {
   @Input() track: Track;
   constructor() { }
-
-  ngOnInit() {
-  }
-
 }
