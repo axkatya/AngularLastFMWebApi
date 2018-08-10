@@ -2,8 +2,8 @@
 
   Artists
   <p>
-    <input #artistNameSearch placeholder="enter artist name">
-    <button class="btn" (click)="onClickSearchArtist(artistNameSearch.value)">Search Artist</button>
+    <input id="lblArtistNameSearch" #artistNameSearch placeholder="enter artist name">
+    <button id="btnArtistNameSearch" class="btn" (click)="onClickSearchArtist(artistNameSearch.value)">Search Artist</button>
   </p>
 </div>
 <app-artist-item [artist]="artist" [topTracks]="topTracks" [topAlbums]="topAlbums"></app-artist-item>
