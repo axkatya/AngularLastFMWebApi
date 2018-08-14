@@ -2,18 +2,45 @@
 
 namespace AngularLastFMWebApi.Models
 {
+	/// <summary>
+	/// The top album entity.
+	/// </summary>
 	public class TopAlbum
     {
-	    [JsonProperty("name")]
+		/// <summary>
+		/// Gets or sets the name.
+		/// </summary>
+		/// <value>
+		/// The name.
+		/// </value>
+		[JsonProperty("name")]
 	    public string Name { get; set; }
 
-	    [JsonProperty("url")]
+		/// <summary>
+		/// Gets or sets the URL.
+		/// </summary>
+		/// <value>
+		/// The URL.
+		/// </value>
+		[JsonProperty("url")]
 	    public string Url { get; set; }
 
-	    [JsonProperty("image")]
+		/// <summary>
+		/// Gets or sets the image.
+		/// </summary>
+		/// <value>
+		/// The image.
+		/// </value>
+		[JsonProperty("image")]
 	    public Image[] Image { get; set; }
 
-	    [JsonProperty("playCount")]
+		/// <summary>
+		/// Gets or sets the play count.
+		/// </summary>
+		/// <value>
+		/// The play count.
+		/// </value>
+		[JsonProperty("playCount")]
 	    public int PlayCount { get; set; }
 	}
 }
