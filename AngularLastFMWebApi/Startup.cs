@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ServiceAgent;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace AngularLastFMWebApi
 {
@@ -21,6 +22,11 @@ namespace AngularLastFMWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+			services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("v1", new Info { Title = "Last FM API", Version = "v1" });
+			});
 
 			services.AddScoped<ILastFmServiceAgent, LastFmServiceAgent>();
 
@@ -47,8 +53,9 @@ namespace AngularLastFMWebApi
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+			app.UseSwagger();
 
-            app.UseMvc(routes =>
+			app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
