@@ -3,7 +3,7 @@
 namespace AngularLastFMWebApi.Models
 {
 	/// <summary>
-	/// The akbum entity.
+	/// The album entity.
 	/// </summary>
 	public class Album
     {
