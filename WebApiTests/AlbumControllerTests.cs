@@ -1,6 +1,7 @@
 using AngularLastFMWebApi.Controllers;
 using AngularLastFMWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using ServiceAgent;
 using System.Collections.Generic;

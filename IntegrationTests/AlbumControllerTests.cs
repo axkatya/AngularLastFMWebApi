@@ -12,7 +12,7 @@ namespace IntegrationTests
 		}
 
 		[Fact]
-		public async System.Threading.Tasks.Task CreatePostReturnsBadRequestForMissingNameValue()
+		public async System.Threading.Tasks.Task Get_WhenCalled_ReturnsAllItemsAsync()
 		{
 			// Act
 			var response = await _fixture.Client.GetAsync("/api/album/love");

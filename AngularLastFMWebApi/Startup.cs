@@ -1,3 +1,4 @@
+using AngularLastFMWebApi.Azure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -52,6 +53,13 @@ namespace AngularLastFMWebApi
 			{
 				configuration.RootPath = "ClientApp/dist";
 			});
+
+			AzureBlobStorage storage = new AzureBlobStorage(new AzureBlobSetings(
+					storageConnectionString: ConfigurationExtensions
+   .GetConnectionString(this.Configuration, "datastorage9_AzureStorageConnectionString"),
+					containerName: Configuration["datastorage9_AzureStorageContainerName"]));
+			var (localFileName, sourceFile) = StartupInfoFileHelper.CreateStartupFile();
+			storage.UploadAsync(localFileName, sourceFile).GetAwaiter().GetResult();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
