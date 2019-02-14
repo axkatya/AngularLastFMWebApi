@@ -23,7 +23,11 @@
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
 	 <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
+	 <PackageReference Include="Microsoft.Azure.KeyVault" Version="3.0.3" />
+	 <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.2.0-preview" />
+	 <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
 	 <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
+	 <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.6.0-preview.18571.3" />
 	 <PackageReference Include="WindowsAzure.Storage" Version="9.1.0" />
   </ItemGroup>
 
@@ -34,6 +38,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Business\Business.csproj" />
+    <ProjectReference Include="..\DataAccess\DataAccess.Implementation.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
     <ProjectReference Include="..\LastFmServiceAgent\ServiceAgent.csproj" />
   </ItemGroup>

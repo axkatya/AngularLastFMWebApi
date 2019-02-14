@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace AngularLastFMWebApi.Models
+namespace Entities
 {
 	/// <summary>
 	/// The artist entity.
@@ -42,5 +42,14 @@ namespace AngularLastFMWebApi.Models
 		/// </value>
 		[JsonProperty("bio")]
 		public Bio Bio { get; set; }
-	}
+
+	    /// <summary>
+	    /// Gets or sets the favorite artist id.
+	    /// </summary>
+	    /// <value>
+	    /// The favorite artist id.
+	    /// </value>
+        [JsonProperty("favoriteArtistId")]
+	    public int FavoriteArtistId { get; set; }
+    }
 }

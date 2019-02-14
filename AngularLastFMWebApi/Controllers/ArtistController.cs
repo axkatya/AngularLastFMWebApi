@@ -1,7 +1,9 @@
-﻿using AngularLastFMWebApi.Models;
+﻿using System;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using ServiceAgent;
 using System.Threading.Tasks;
+using Business.Interfaces;
 
 namespace AngularLastFMWebApi.Controllers
 {
@@ -13,15 +15,17 @@ namespace AngularLastFMWebApi.Controllers
 	public class ArtistController : Controller
 	{
 		ILastFmServiceAgent _lastFmServiceAgent;
+	    IFavoriteArtistBusiness _favoriteArtistBusiness;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ArtistController"/> class.
-		/// </summary>
-		/// <param name="serviceAgent">The service agent.</param>
-		public ArtistController(ILastFmServiceAgent serviceAgent)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArtistController"/> class.
+        /// </summary>
+        /// <param name="serviceAgent">The service agent.</param>
+        public ArtistController(ILastFmServiceAgent serviceAgent, IFavoriteArtistBusiness favoriteArtistBusiness)
 		{
 			_lastFmServiceAgent = serviceAgent;
-		}
+		    _favoriteArtistBusiness = favoriteArtistBusiness;
+        }
 
 		/// <summary>
 		/// Gets the specified artist name.
@@ -35,10 +39,21 @@ namespace AngularLastFMWebApi.Controllers
 		[ProducesResponseType(400)]
 		public async Task<IActionResult> Get(string artistName)
 		{
-			var response = await _lastFmServiceAgent.GetArtist(artistName);
-			if (response != null)
+			var artist = await _lastFmServiceAgent.GetArtist(artistName);
+			if (artist != null)
 			{
-				return Ok(response);
+			    var stringUserId = Helpers.UserService.GetCurrentUserId(this.User);
+			    if (string.IsNullOrWhiteSpace(stringUserId))
+			    {
+			        return Unauthorized();
+			    }
+
+                if (Int32.TryParse(stringUserId, out var userId))
+			    {
+			        
+			    
+			    }
+                return Ok(artist);
 			}
 
 			return Ok(new Artist());

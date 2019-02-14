@@ -1,10 +1,9 @@
-﻿using AngularLastFMWebApi.Azure;
+﻿using System.IO;
+using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
-using System.IO;
-using System.Threading.Tasks;
 
-namespace AngularLastFMWebApi
+namespace AngularLastFMWebApi.Azure
 {
 	public class AzureBlobStorage : IAzureBlobStorage
 	{

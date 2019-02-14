@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace AngularLastFMWebApi.Models.Responses
+namespace Entities
 {
 	public class TopTracksSearchByArtistNameResponse
     {

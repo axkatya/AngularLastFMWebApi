@@ -1,6 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
-namespace AngularLastFMWebApi.Models
+namespace Entities
 {
 	/// <summary>
 	/// The album entity.
@@ -42,5 +43,14 @@ namespace AngularLastFMWebApi.Models
 		/// </value>
 		[JsonProperty("image")]
 		public Image[] Image { get; set; }
+
+        /// <summary>
+        /// Gets or sets the favorite album id.
+        /// </summary>
+        /// <value>
+        /// The favorite album id.
+        /// </value>
+        [JsonProperty("favoriteAlbumId")]
+        public int FavoriteAlbumId { get; set; }
     }
 }

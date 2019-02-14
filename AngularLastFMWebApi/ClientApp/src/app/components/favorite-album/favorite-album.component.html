@@ -1,0 +1,9 @@
+<div  class="item__search">
+  My Favorite Albums
+  <p>
+    <input id="lblAlbumNameSearch" #albumNameSearch placeholder="enter album name">
+    <button id="btnAlbumNameSearch" class="btn" (click)="onClickSearchAlbum(albumNameSearch.value)">Search Album</button>
+  </p>
+</div>
+
+<app-album-list [albums]="albums"></app-album-list>

@@ -5,4 +5,5 @@ export class Artist {
   public url: string;
   public image: any[];
   public bio: Bio;
+  public favoriteArtistId: number;
 }

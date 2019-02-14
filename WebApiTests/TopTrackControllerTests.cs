@@ -1,5 +1,5 @@
 ﻿using AngularLastFMWebApi.Controllers;
-using AngularLastFMWebApi.Models;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using ServiceAgent;
@@ -9,7 +9,7 @@ using Xunit;
 
 namespace WebApiTests
 {
-    public class TopTrackControllerTests
+	public class TopTrackControllerTests
     {
 		TopTrackController _controller;
 		Mock<ILastFmServiceAgent> _lastFmServiceMock;

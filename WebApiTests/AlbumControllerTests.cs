@@ -1,11 +1,11 @@
 using AngularLastFMWebApi.Controllers;
-using AngularLastFMWebApi.Models;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Moq;
 using ServiceAgent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Business.Interfaces;
 using Xunit;
 
 namespace WebApiTests
@@ -14,11 +14,14 @@ namespace WebApiTests
 	{
 		AlbumController _controller;
 		Mock<ILastFmServiceAgent> _lastFmServiceMock;
-		IEnumerable<Album> _mockAlbums;
+	    Mock<IFavoriteAlbumBusiness> _favoriteAlbumBusinessMock;
+        IEnumerable<Album> _mockAlbums;
+
 		public AlbumControllerTests()
 		{
 			_lastFmServiceMock = new Mock<ILastFmServiceAgent>();
-			_mockAlbums = new List<Album>
+		    _favoriteAlbumBusinessMock = new Mock<IFavoriteAlbumBusiness>();
+            _mockAlbums = new List<Album>
 			{
 				new Album { Name = "Love123", Artist = "Cher" },
 				new Album { Name = "Love456", Artist = "Tim" }
@@ -30,7 +33,7 @@ namespace WebApiTests
 		[Fact]
 		public async Task Get_WhenCalled_ReturnsAllItemsAsync()
 		{
-			_controller = new AlbumController(_lastFmServiceMock.Object);
+			_controller = new AlbumController(_lastFmServiceMock.Object, _favoriteAlbumBusinessMock.Object);
 
 			// Act
 			IActionResult actionResult = await _controller.Get("love");

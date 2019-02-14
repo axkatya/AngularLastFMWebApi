@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace AngularLastFMWebApi.Models
+namespace Entities
 {
 	/// <summary>
 	/// The image entity.

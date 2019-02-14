@@ -1,6 +1,6 @@
 ﻿using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace AngularLastFMWebApi
+namespace AngularLastFMWebApi.Azure
 {
 	public class AzureBlobItem
 	{

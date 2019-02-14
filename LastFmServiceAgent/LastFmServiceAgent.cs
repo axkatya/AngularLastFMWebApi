@@ -1,5 +1,4 @@
-﻿using AngularLastFMWebApi.Models;
-using AngularLastFMWebApi.Models.Responses;
+﻿using Entities;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;

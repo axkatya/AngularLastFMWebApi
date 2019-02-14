@@ -1,9 +1,14 @@
 <h1>{{title}}</h1>
 <nav class="container__tabmenu tablist">
-  
+
   <a class="tablist__item" routerLink="/albums" routerLinkActive="tablist__item--active">Albums</a>
   <a class="tablist__item" routerLink="/artists" routerLinkActive="tablist__item--active">Artists</a>
+  <a class="tablist__item" routerLink="/favoriteAlbums" routerLinkActive="tablist__item--active">My favorite albums</a>
+  <a class="tablist__item" routerLink="/favoriteArtists" routerLinkActive="tablist__item--active">My favorite artists</a>
+  <a [routerLink]="['/login']" routerLinkActive="tablist__item--active">Logout</a>
 
 </nav>
+
+
 <router-outlet></router-outlet>
 

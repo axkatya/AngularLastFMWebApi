@@ -1,4 +1,4 @@
-﻿using AngularLastFMWebApi.Models;
+﻿using Entities;
 using Microsoft.AspNetCore.Mvc;
 using ServiceAgent;
 using System;

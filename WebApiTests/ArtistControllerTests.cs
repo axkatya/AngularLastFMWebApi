@@ -1,9 +1,10 @@
 ﻿using AngularLastFMWebApi.Controllers;
-using AngularLastFMWebApi.Models;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using ServiceAgent;
 using System.Threading.Tasks;
+using Business.Interfaces;
 using Xunit;
 
 namespace WebApiTests
@@ -12,7 +13,8 @@ namespace WebApiTests
     {
 		ArtistController _controller;
 		Mock<ILastFmServiceAgent> _lastFmServiceMock;
-		Artist _mockArtist;
+        Mock<IFavoriteArtistBusiness> _favoriteArtistBusinessMock;
+        Artist _mockArtist;
 		public ArtistControllerTests()
 		{
 			_lastFmServiceMock = new Mock<ILastFmServiceAgent>();
@@ -27,7 +29,7 @@ namespace WebApiTests
 		[Fact]
 		public async Task Get_WhenCalled_ReturnsAllItemsAsync()
 		{
-			_controller = new ArtistController(_lastFmServiceMock.Object);
+			_controller = new ArtistController(_lastFmServiceMock.Object, _favoriteArtistBusinessMock.Object);
 
 			// Act
 			IActionResult actionResult = await _controller.Get("Cher");

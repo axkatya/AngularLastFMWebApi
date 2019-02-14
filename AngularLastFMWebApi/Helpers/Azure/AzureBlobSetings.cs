@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AngularLastFMWebApi
+namespace AngularLastFMWebApi.Azure
 {
 	public class AzureBlobSetings
 	{

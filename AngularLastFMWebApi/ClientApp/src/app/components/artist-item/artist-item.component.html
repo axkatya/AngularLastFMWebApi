@@ -1,7 +1,8 @@
 <div *ngIf="artist">
 
-  <div *ngIf="largeImage">
+  <div class="card__itemimage" *ngIf="largeImage">
     <img src="{{ largeImage['#text']}}" />
+    <app-favorite-button (toggle)="onClickFavoriteButton()" [isFavorite]='isFavorite'></app-favorite-button>
   </div>
 
   <div>

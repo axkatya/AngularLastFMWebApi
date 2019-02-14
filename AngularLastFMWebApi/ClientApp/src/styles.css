@@ -63,6 +63,7 @@ body {
 }
 
 .card__itemimage {
+  position: relative;
   background-size: cover;
   background-position: center center;
 }
