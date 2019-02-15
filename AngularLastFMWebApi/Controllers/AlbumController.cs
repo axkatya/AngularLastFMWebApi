@@ -1,11 +1,9 @@
-using System;
+using Business.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceAgent;
-using System.Collections.Generic;
+using System;
 using System.Threading.Tasks;
-using Business.Interfaces;
-using Entities;
-using Microsoft.AspNetCore.Authorization;
 
 namespace AngularLastFMWebApi.Controllers
 {
@@ -16,13 +14,14 @@ namespace AngularLastFMWebApi.Controllers
     [Route("api/[controller]")]
     public class AlbumController : Controller
     {
-        ILastFmServiceAgent _lastFmServiceAgent;
-        IFavoriteAlbumBusiness _favoriteAlbumBusiness;
+        readonly ILastFmServiceAgent _lastFmServiceAgent;
+        readonly IFavoriteAlbumBusiness _favoriteAlbumBusiness;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AlbumController"/> class.
+        /// Initializes a new instance of the <see cref="AlbumController" /> class.
         /// </summary>
         /// <param name="serviceAgent">The service agent.</param>
+        /// <param name="favoriteAlbumBusiness">The favorite album business.</param>
         public AlbumController(ILastFmServiceAgent serviceAgent, IFavoriteAlbumBusiness favoriteAlbumBusiness)
         {
             _lastFmServiceAgent = serviceAgent;
@@ -56,7 +55,7 @@ namespace AngularLastFMWebApi.Controllers
                 {
                     foreach (var album in albums)
                     {
-                        album.FavoriteAlbumId =
+                        album.FavoriteAlbumId = await
                             _favoriteAlbumBusiness.GetFavoriteAlbumsByAlbumNameAndArtistName(album.Name, album.Artist,
                                 userId);
                     }
@@ -65,7 +64,7 @@ namespace AngularLastFMWebApi.Controllers
                 return Ok(albums);
             }
 
-            return Ok(new List<Album>());
+            return NoContent();
         }
     }
 }

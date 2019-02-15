@@ -1,5 +1,6 @@
 ﻿using Entities;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Interfaces;
 using DataAccess.Interfaces;
 
@@ -13,17 +14,17 @@ namespace Business
         {
             _favoriteAlbumRepository = favoriteAlbumRepository;
         }
-        public IEnumerable<Album> GetFavoriteAlbums(int userId)
+        public async Task<IEnumerable<Album>> GetFavoriteAlbums(int userId)
         {
-            return _favoriteAlbumRepository.GetFavoriteAlbums(userId);
+            return await _favoriteAlbumRepository.GetFavoriteAlbums(userId);
         }
 
-        public IEnumerable<Album> GetFavoriteAlbumsByName(string albumName, int userId)
+        public async Task<IEnumerable<Album>> GetFavoriteAlbumsByName(string albumName, int userId)
         {
-            return _favoriteAlbumRepository.GetFavoriteAlbumsByName(albumName, userId);
+            return await _favoriteAlbumRepository.GetFavoriteAlbumsByName(albumName, userId);
         }
 
-        public int GetFavoriteAlbumsByAlbumNameAndArtistName(string albumName, string artistName, int userId)
+        public Task<int> GetFavoriteAlbumsByAlbumNameAndArtistName(string albumName, string artistName, int userId)
         {
             return _favoriteAlbumRepository.GetFavoriteAlbumsByAlbumNameAndArtistName(albumName, artistName, userId);
         }

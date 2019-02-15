@@ -4,19 +4,25 @@ using Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using AngularLastFMWebApi.Helpers;
 
 namespace AngularLastFMWebApi.Controllers
 {
+    /// <summary>
+    /// The favorite album controller.
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class FavoriteAlbumController : Controller
     {
         private readonly IFavoriteAlbumBusiness _favoriteAlbumBusiness;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FavoriteAlbumController"/> class.
+        /// </summary>
+        /// <param name="favoriteAlbumBusiness">The favorite album business.</param>
         public FavoriteAlbumController(IFavoriteAlbumBusiness favoriteAlbumBusiness)
         {
             _favoriteAlbumBusiness = favoriteAlbumBusiness;
@@ -43,11 +49,13 @@ namespace AngularLastFMWebApi.Controllers
 
             if (Int32.TryParse(stringUserId, out var userId))
             {
-                var response = _favoriteAlbumBusiness.GetFavoriteAlbums(userId);
+                var response = await _favoriteAlbumBusiness.GetFavoriteAlbums(userId);
                 if (response != null)
                 {
                     return Ok(response);
                 }
+
+                return NoContent();
             }
 
             return Unauthorized();
@@ -74,16 +82,23 @@ namespace AngularLastFMWebApi.Controllers
 
             if (Int32.TryParse(stringUserId, out var userId))
             {
-                var response = _favoriteAlbumBusiness.GetFavoriteAlbumsByName(albumName, userId);
+                var response = await _favoriteAlbumBusiness.GetFavoriteAlbumsByName(albumName, userId);
                 if (response != null)
                 {
                     return Ok(response);
                 }
+
+                return NoContent();
             }
 
             return Unauthorized();
         }
 
+        /// <summary>
+        /// Posts the specified album.
+        /// </summary>
+        /// <param name="album">The album.</param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize]
         public IActionResult Post([FromBody]Album album)
@@ -106,9 +121,14 @@ namespace AngularLastFMWebApi.Controllers
             return Unauthorized();
         }
 
+        /// <summary>
+        /// Deletes the specified favorite album identifier.
+        /// </summary>
+        /// <param name="favoriteAlbumId">The favorite album identifier.</param>
+        /// <returns></returns>
         [HttpDelete("{favoriteAlbumId}")]
         [Authorize]
-        public async Task<IActionResult> Delete(int favoriteAlbumId)
+        public IActionResult Delete(int favoriteAlbumId)
         {
             try
             {

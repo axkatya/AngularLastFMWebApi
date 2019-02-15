@@ -1,8 +1,10 @@
-﻿using DataAccess.Interfaces;
+﻿using DataAccess.Implementation.Mongo;
+using DataAccess.Implementation.SQL;
+using DataAccess.Interfaces;
+using Entities;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
-using DataAccess.Implementation.Mongo;
-using DataAccess.Implementation.SQL;
+using System.Threading.Tasks;
 
 namespace DataAccess.Implementation
 {
@@ -21,10 +23,10 @@ namespace DataAccess.Implementation
             _options = options;
         }
 
-        public IEnumerable<Entities.Album> GetFavoriteAlbums(int userId) => _options.Value.MongoDbEnabled ? _mongoFavoriteAlbumRepository.GetFavoriteAlbums(userId) : _sqlFavoriteAlbumRepository.GetFavoriteAlbums(userId);
+        public async Task<IEnumerable<Album>> GetFavoriteAlbums(int userId) => _options.Value.MongoDbEnabled ? await _mongoFavoriteAlbumRepository.GetFavoriteAlbums(userId) : await _sqlFavoriteAlbumRepository.GetFavoriteAlbums(userId);
 
-        public IEnumerable<Entities.Album> GetFavoriteAlbumsByName(string albumName, int userId) =>
-            _sqlFavoriteAlbumRepository.GetFavoriteAlbums(userId);
+        public async Task<IEnumerable<Entities.Album>> GetFavoriteAlbumsByName(string albumName, int userId) =>
+           await _sqlFavoriteAlbumRepository.GetFavoriteAlbumsByName(albumName, userId);
 
         public int SaveFavoriteAlbum(Entities.Album album, int userId) =>
             _sqlFavoriteAlbumRepository.SaveFavoriteAlbum(album, userId);
@@ -32,7 +34,7 @@ namespace DataAccess.Implementation
         public void DeleteFavoriteAlbum(int favoriteAlbumId) =>
             _sqlFavoriteAlbumRepository.DeleteFavoriteAlbum(favoriteAlbumId);
 
-        public int GetFavoriteAlbumsByAlbumNameAndArtistName(string albumName, string artistName, int userId)
-            => _sqlFavoriteAlbumRepository.GetFavoriteAlbumsByAlbumNameAndArtistName(albumName, artistName, userId);
+        public async Task<int> GetFavoriteAlbumsByAlbumNameAndArtistName(string albumName, string artistName, int userId)
+            => await _sqlFavoriteAlbumRepository.GetFavoriteAlbumsByAlbumNameAndArtistName(albumName, artistName, userId);
     }
 }

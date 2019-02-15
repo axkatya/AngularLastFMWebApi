@@ -1,6 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import Routerlinkdirectivestub = require("../testing/router-link-directive-stub");
+import Routerlinkdirectivestub = require('../testing/router-link-directive-stub');
 import RouterLinkDirectiveStub = Routerlinkdirectivestub.RouterLinkDirectiveStub;
 import { Component } from '@angular/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';

@@ -20,7 +20,7 @@ export class FavoriteAlbumService {
       .pipe(map(result => result.json() as Album[]));
   }
 
-  saveToFavoriteAlbums(album: Album){
+  saveToFavoriteAlbums(album: Album) {
     return this.http.post(environment.baseUrl + '/api/favoriteAlbum', album, this.jwt())
       .pipe(map(result => result.json() as number));
   }
@@ -31,9 +31,9 @@ export class FavoriteAlbumService {
 
   private jwt() {
     // create authorization header with jwt token
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser && currentUser.token) {
-      let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token, 'Content-Type': 'application/json' });
+      const headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token, 'Content-Type': 'application/json' });
       return new RequestOptions({ headers: headers });
     }
   }

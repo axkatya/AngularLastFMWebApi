@@ -5,6 +5,7 @@ using Moq;
 using ServiceAgent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Business.Interfaces;
 using Xunit;
 
 namespace WebApiTests
@@ -12,11 +13,14 @@ namespace WebApiTests
 	public class TopAlbumControllerTests
 	{
 		TopAlbumController _controller;
-		Mock<ILastFmServiceAgent> _lastFmServiceMock;
-		IEnumerable<TopAlbum> _mockAlbums;
-		public TopAlbumControllerTests()
+	    readonly Mock<ILastFmServiceAgent> _lastFmServiceMock;
+	    readonly Mock<IFavoriteAlbumBusiness> _favoriteAlbumBusinessMock;
+	    readonly IEnumerable<TopAlbum> _mockAlbums;
+
+		public TopAlbumControllerTests(Mock<IFavoriteAlbumBusiness> favoriteAlbumBusinessMock)
 		{
-			_lastFmServiceMock = new Mock<ILastFmServiceAgent>();
+		    _favoriteAlbumBusinessMock = favoriteAlbumBusinessMock;
+		    _lastFmServiceMock = new Mock<ILastFmServiceAgent>();
 			_mockAlbums = new List<TopAlbum>
 			{
 				new TopAlbum { Name = "Love123", PlayCount = 123 },
@@ -29,7 +33,7 @@ namespace WebApiTests
 		[Fact]
 		public async Task Get_WhenCalled_ReturnsAllItemsAsync()
 		{
-			_controller = new TopAlbumController(_lastFmServiceMock.Object);
+			_controller = new TopAlbumController(_lastFmServiceMock.Object, _favoriteAlbumBusinessMock.Object);
 
 			// Act
 			IActionResult actionResult = await _controller.Get("Cher");

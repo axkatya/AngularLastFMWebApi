@@ -1,7 +1,11 @@
-<div class="container__list" *ngIf="artists">
+<div class="container__list" *ngIf="artists?.length; else noContent">
 
-  <div *ngFor="let artist of artists">
-    <app-artist-item [artist]="artist"></app-artist-item>
-  </div>
+    <div *ngFor="let artist of artists">
+        <app-artist-item [artist]="artist"></app-artist-item>
+    </div>
 
 </div>
+
+<ng-template #noContent>
+    No content
+</ng-template>

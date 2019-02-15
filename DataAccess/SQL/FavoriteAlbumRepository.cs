@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Threading.Tasks;
 using DataAccess.Interfaces;
 using Entities;
 using Microsoft.Extensions.Options;
@@ -22,7 +23,7 @@ namespace DataAccess.Implementation.SQL
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
-        public IEnumerable<Entities.Album> GetFavoriteAlbums(int userId)
+        public async Task<IEnumerable<Entities.Album>> GetFavoriteAlbums(int userId)
         {
             IList<Entities.Album> favoriteAlbums = new List<Entities.Album>();
 
@@ -43,7 +44,7 @@ namespace DataAccess.Implementation.SQL
                     command.Parameters.AddWithValue("@UserId", userId);
                     connection.Open();
 
-                    SqlDataReader reader = command.ExecuteReader();
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
                     while (reader.Read())
                     {
                         favoriteAlbums.Add(new Entities.Album
@@ -63,7 +64,7 @@ namespace DataAccess.Implementation.SQL
             return favoriteAlbums;
         }
 
-        public IEnumerable<Entities.Album> GetFavoriteAlbumsByName(string albumName, int userId)
+        public async Task<IEnumerable<Entities.Album>> GetFavoriteAlbumsByName(string albumName, int userId)
         {
             IList<Entities.Album> favoriteAlbums = new List<Entities.Album>();
 
@@ -74,7 +75,7 @@ namespace DataAccess.Implementation.SQL
                 ,[Url]
                 ,[Image]
             FROM [dbo].[FavoriteAlbum]
-            WHERE [UserId] = @UserId AND [Name] LIKE @AlbumName; ";
+            WHERE [UserId] = @UserId AND UPPER([Name]) LIKE UPPER(@AlbumName); ";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -85,7 +86,7 @@ namespace DataAccess.Implementation.SQL
                     command.Parameters.AddWithValue("@AlbumName", albumName);
                     connection.Open();
 
-                    SqlDataReader reader = command.ExecuteReader();
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
                     while (reader.Read())
                     {
                         favoriteAlbums.Add(new Entities.Album
@@ -105,7 +106,7 @@ namespace DataAccess.Implementation.SQL
             return favoriteAlbums;
         }
 
-        public int GetFavoriteAlbumsByAlbumNameAndArtistName(string albumName, string artistName, int userId)
+        public async Task<int> GetFavoriteAlbumsByAlbumNameAndArtistName(string albumName, string artistName, int userId)
         {
             int favoriteAlbumId = 0;
 
@@ -124,7 +125,7 @@ namespace DataAccess.Implementation.SQL
                     command.Parameters.AddWithValue("@ArtistName", artistName);
                     connection.Open();
 
-                    SqlDataReader reader = command.ExecuteReader();
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
                     if (reader.Read())
                     {
                         favoriteAlbumId = reader.GetInt32(0);

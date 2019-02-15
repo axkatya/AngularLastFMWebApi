@@ -15,8 +15,8 @@
 
         public bool MongoDbEnabled { get; set; }
 
-	    public string jWTKey { get; set; }
+	    public string JWtKey { get; set; }
 
-	    public string jWTIssuer { get; set; }
+	    public string JWtIssuer { get; set; }
     }
 }

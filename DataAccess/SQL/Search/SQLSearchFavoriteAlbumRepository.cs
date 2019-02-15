@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DataAccess.Interfaces;
+using Entities;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
@@ -17,12 +19,12 @@ namespace DataAccess.Implementation.SQL.Search
             return indexClient;
         }
 
-        public IEnumerable<Entities.Album> GetFavoriteAlbums(int userId)
+        public async Task<IEnumerable<Album>> GetFavoriteAlbums(int userId)
         {
             var favoriteAlbums = new List<Entities.Album>();
             var indexClient = CreateSearchIndexClient();
             var sp = new SearchParameters();
-            DocumentSearchResult<Entities.Album> response = indexClient.Documents.Search<Entities.Album>("*", sp);
+            DocumentSearchResult<Entities.Album> response = await indexClient.Documents.SearchAsync<Entities.Album>("*", sp);
             if (response?.Results != null && response.Results.Count > 0)
             {
                 favoriteAlbums = response.Results.Select(r => new Entities.Album
@@ -37,12 +39,7 @@ namespace DataAccess.Implementation.SQL.Search
             return favoriteAlbums;
         }
 
-        public IEnumerable<Entities.Album> GetFavoriteAlbumsByName(string albumName, int userId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public int GetFavoriteAlbumsByAlbumNameAndArtistName(string albumName, string artistName, int userId)
+        public Task<IEnumerable<Album>> GetFavoriteAlbumsByName(string albumName, int userId)
         {
             throw new System.NotImplementedException();
         }
@@ -57,7 +54,7 @@ namespace DataAccess.Implementation.SQL.Search
             throw new System.NotImplementedException();
         }
 
-        public int GetFavoriteAlbumsByGuid(string albumGuid, int userId)
+        Task<int> IFavoriteAlbumRepository.GetFavoriteAlbumsByAlbumNameAndArtistName(string albumName, string artistName, int userId)
         {
             throw new System.NotImplementedException();
         }

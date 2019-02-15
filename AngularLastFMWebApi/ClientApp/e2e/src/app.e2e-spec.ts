@@ -8,7 +8,7 @@ describe('workspace-project App', () => {
   });
 
   it('should display header', () => {
-    page.navigateTo();    
+    page.navigateTo();
     expect(page.getParagraphText()).toEqual('Last FM');
   });
 });

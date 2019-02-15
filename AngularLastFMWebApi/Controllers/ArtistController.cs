@@ -1,26 +1,28 @@
-﻿using System;
-using Entities;
+﻿using Business.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceAgent;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
-using Business.Interfaces;
 
 namespace AngularLastFMWebApi.Controllers
 {
-	/// <summary>
-	/// The artist controller.
-	/// </summary>
-	/// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
-	[Route("api/[controller]")]
+    /// <summary>
+    /// The artist controller.
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
+    [Route("api/[controller]")]
 	public class ArtistController : Controller
 	{
-		ILastFmServiceAgent _lastFmServiceAgent;
-	    IFavoriteArtistBusiness _favoriteArtistBusiness;
+	    readonly ILastFmServiceAgent _lastFmServiceAgent;
+	    readonly IFavoriteArtistBusiness _favoriteArtistBusiness;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ArtistController"/> class.
+        /// Initializes a new instance of the <see cref="ArtistController" /> class.
         /// </summary>
         /// <param name="serviceAgent">The service agent.</param>
+        /// <param name="favoriteArtistBusiness">The favorite artist business.</param>
         public ArtistController(ILastFmServiceAgent serviceAgent, IFavoriteArtistBusiness favoriteArtistBusiness)
 		{
 			_lastFmServiceAgent = serviceAgent;
@@ -37,6 +39,7 @@ namespace AngularLastFMWebApi.Controllers
 		[HttpGet("{artistName}")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
+        [Authorize]
 		public async Task<IActionResult> Get(string artistName)
 		{
 			var artist = await _lastFmServiceAgent.GetArtist(artistName);
@@ -49,14 +52,18 @@ namespace AngularLastFMWebApi.Controllers
 			    }
 
                 if (Int32.TryParse(stringUserId, out var userId))
-			    {
-			        
-			    
-			    }
+                {
+                    var response = _favoriteArtistBusiness.GetFavoriteArtistsByName(artist.Name, userId);
+                    int? favoriteArtistId = response?.FirstOrDefault()?.FavoriteArtistId;
+                    if (favoriteArtistId != null)
+                    {
+                        artist.FavoriteArtistId = (int) favoriteArtistId;
+                    }
+                }
                 return Ok(artist);
 			}
 
-			return Ok(new Artist());
-		}
+		    return NoContent();
+        }
 	}
 }

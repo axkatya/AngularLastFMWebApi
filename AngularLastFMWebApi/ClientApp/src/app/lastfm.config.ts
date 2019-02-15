@@ -9,4 +9,4 @@ export function lastFmConfigFactory() {
 export const lastFmConfig = {
   provide: 'lastFmConfig',
   useFactory: lastFmConfigFactory
-}
+};

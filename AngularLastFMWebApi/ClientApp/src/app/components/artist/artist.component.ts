@@ -19,12 +19,12 @@ export class ArtistComponent implements OnInit {
 
   constructor(private artistService: ArtistService,
     private route: ActivatedRoute) {
-   
-      this.artistName = route.snapshot.params['artistName'];    
+
+      this.artistName = route.snapshot.params['artistName'];
   }
 
   ngOnInit() {
-    if (this.artistName !== null && this.artistName !== undefined && this.artistName !== "") {
+    if (this.artistName !== null && this.artistName !== undefined && this.artistName !== '') {
       this.getAllInfo(this.artistName);
     }
   }
@@ -38,12 +38,17 @@ export class ArtistComponent implements OnInit {
       this.artist = result;
     });
 
-    this.artistService.searchArtistTopTracks(artistName).subscribe(result => {
-      this.topTracks = result;
-    });
+      if (this.artist !== null && this.artist !== undefined) {
+          this.artistService.searchArtistTopTracks(artistName).subscribe(result => {
+              this.topTracks = result;
+          });
 
-    this.artistService.searchArtistTopAlbums(artistName).subscribe(result => {
-      this.topAlbums = result;
-    });
+          this.artistService.searchArtistTopAlbums(artistName).subscribe(result => {
+              this.topAlbums = result;
+              if (this.topAlbums !== null) {
+                  this.topAlbums.forEach(album => album.artist = artistName);
+              }
+          });
+      }
   }
 }

@@ -1,13 +1,12 @@
 import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges, SimpleChange} from '@angular/core';
-import { Album } from "../../models/album";
+import { Album } from '../../models/album';
 
 
 @Component({
   selector: 'app-favorite-button',
   templateUrl: './favorite-button.component.html'
 })
-export class FavoriteButtonComponent implements OnChanges
-{
+export class FavoriteButtonComponent implements OnChanges {
   constructor(
   ) { }
 

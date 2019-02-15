@@ -59,7 +59,7 @@ import { ArtistListComponent } from './components/artist-list/artist-list.compon
     BrowserModule,
     HttpModule,
     AppRoutingModule,
-    FormsModule 
+    FormsModule
   ],
   providers: [
     AuthGuard,

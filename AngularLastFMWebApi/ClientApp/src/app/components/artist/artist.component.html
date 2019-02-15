@@ -1,12 +1,20 @@
 <div class="container__search">
 
-  Artists
-  <p>
-    <input id="lblArtistNameSearch" #artistNameSearch placeholder="enter artist name">
-    <button id="btnArtistNameSearch" class="btn" (click)="onClickSearchArtist(artistNameSearch.value)">Search Artist</button>
-  </p>
+    Artists
+    <p>
+        <input id="lblArtistNameSearch" #artistNameSearch placeholder="enter artist name">
+        <button id="btnArtistNameSearch" class="btn" (click)="onClickSearchArtist(artistNameSearch.value)">Search Artist</button>
+    </p>
 </div>
-<app-artist-item [artist]="artist" [topTracks]="topTracks" [topAlbums]="topAlbums"></app-artist-item>
+<div *ngIf="artist; else noContent">
+    <app-artist-item [artist]="artist" [topTracks]="topTracks" [topAlbums]="topAlbums"></app-artist-item>
+</div>
+
+<ng-template #noContent>
+    No content
+</ng-template>
+
+
 
 
 

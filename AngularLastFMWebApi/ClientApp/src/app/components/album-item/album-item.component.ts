@@ -14,12 +14,12 @@ export class AlbumItemComponent implements OnInit {
   isFavorite: boolean;
 
   constructor(private favoriteAlbumService: FavoriteAlbumService) {
-   
+
   }
 
   ngOnInit() {
     this.isFavorite = this.album.favoriteAlbumId > 0;
-    if (this.album != null && this.album != undefined && this.album.image != null && this.album.image != undefined) {
+    if (this.album !== null && this.album !== undefined && this.album.image !== null && this.album.image !== undefined) {
       if (this.album.image.some((img: any) => img['size'] === 'large')) {
         this.largeImages = this.album.image
           .filter((img: any) => img['size'] === 'large');
@@ -47,12 +47,12 @@ export class AlbumItemComponent implements OnInit {
 
   deleteFromFavoriteAlbum() {
     this.favoriteAlbumService.deleteFromFavoriteAlbums(this.album.favoriteAlbumId)
-      .subscribe({
-        complete() {
-          this.album.favoriteAlbumId = 0;
-          this.isFavorite = false;
-        }
-      });
+        .subscribe(() => {
+
+                this.album.favoriteAlbumId = 0;
+                this.isFavorite = false;
+            }
+        );
   }
 
   isString(val) { return typeof val === 'string'; }

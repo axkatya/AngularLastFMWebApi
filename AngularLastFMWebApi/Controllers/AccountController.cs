@@ -1,30 +1,39 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using AngularLastFMWebApi.Helpers;
+﻿using AngularLastFMWebApi.Helpers;
 using Business.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
+using System.Threading.Tasks;
 
 namespace AngularLastFMWebApi.Controllers
 {
+    /// <summary>
+    /// The account controller.
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
         private readonly IAccountBusiness _accountBusiness;
         private readonly Settings _appSettings;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountController"/> class.
+        /// </summary>
+        /// <param name="accountBusiness">The account business.</param>
+        /// <param name="appSettings">The application settings.</param>
         public AccountController(IAccountBusiness accountBusiness, IOptions<Settings> appSettings)
         {
             _accountBusiness = accountBusiness;
             _appSettings = appSettings.Value;
         }
 
+        /// <summary>
+        /// Authenticates the specified account.
+        /// </summary>
+        /// <param name="account">The account.</param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("authenticate")]
         [ProducesResponseType(200)]
@@ -35,17 +44,21 @@ namespace AngularLastFMWebApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             var user = await _accountBusiness.GetAccount(account.Username, account.Password);
             if (user == null)
             {
                 return Unauthorized();
             }
 
-            var tokenString = GenerateJSONWebToken(user);
+            var tokenString = UserService.GenerateJsonWebToken(user, _appSettings);
             return Ok(new { token = tokenString });
         }
 
+        /// <summary>
+        /// Registers the specified user.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("register")]
         [ProducesResponseType(200)]
@@ -54,7 +67,7 @@ namespace AngularLastFMWebApi.Controllers
         {
             try
             {
-                var userId = await _accountBusiness.Create(user.Username, user.Password).ConfigureAwait(false);
+                var userId = await _accountBusiness.Create(user.Username, user.Password);
 
                 if (userId > 0)
                 {
@@ -68,24 +81,6 @@ namespace AngularLastFMWebApi.Controllers
                 // return error message if there was an exception
                 return BadRequest(ex.Message);
             }
-        }
-
-        private string GenerateJSONWebToken(Account user)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.jWTKey));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var claims = new[] {
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-            };
-
-            var token = new JwtSecurityToken(issuer: _appSettings.jWTIssuer,
-                audience: _appSettings.jWTIssuer,
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(120),
-                signingCredentials: credentials);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

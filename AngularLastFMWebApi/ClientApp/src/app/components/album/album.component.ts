@@ -13,7 +13,7 @@ export class AlbumComponent implements OnInit {
   constructor(private albumService: AlbumService) { }
 
   ngOnInit() {
-    
+
   }
 
   onClickSearchAlbum(albumNameSearch: string) {

@@ -42,5 +42,14 @@ namespace Entities
 		/// </value>
 		[JsonProperty("playCount")]
 	    public int PlayCount { get; set; }
-	}
+
+        /// <summary>
+        /// Gets or sets the favorite album id.
+        /// </summary>
+        /// <value>
+        /// The favorite album id.
+        /// </value>
+        [JsonProperty("favoriteAlbumId")]
+        public int FavoriteAlbumId { get; set; }
+    }
 }

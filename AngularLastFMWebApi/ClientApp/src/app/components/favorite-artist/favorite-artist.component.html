@@ -1,8 +1,10 @@
 <div class="item__search">
-  My Favorite Artists
-  <p>
-    <input id="lblArtistNameSearch" #albumNameSearch placeholder="enter artist name">
-    <button id="btnArtistNameSearch" class="btn" (click)="onClickSearchAlbum(artistNameSearch.value)">Search Artist</button>
-  </p>
+    My Favorite Artists
+    <p>
+        <input id="lblArtistNameSearch" #albumNameSearch placeholder="enter artist name">
+        <button id="btnArtistNameSearch" class="btn" (click)="onClickSearchAlbum(artistNameSearch.value)">Search Artist</button>
+    </p>
 </div>
-<app-artist-list [artists]="artists"></app-artist-list>
+<div *ngIf="artists">
+    <app-artist-list [artists]="artists"></app-artist-list>
+</div>

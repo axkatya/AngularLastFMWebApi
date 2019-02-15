@@ -1,7 +1,12 @@
-<div class="container__list" *ngIf="albums">
+<div class="container__list" *ngIf="albums?.length; else noContent">
 
-  <div *ngFor="let album of albums">
-    <app-album-item [album]="album"></app-album-item>
-  </div>
+    <div *ngFor="let album of albums">
+        <app-album-item [album]="album"></app-album-item>
+    </div>
 
 </div>
+
+
+<ng-template #noContent>
+    No content
+</ng-template>

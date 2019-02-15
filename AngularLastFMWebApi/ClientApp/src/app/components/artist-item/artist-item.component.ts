@@ -52,11 +52,11 @@ export class ArtistItemComponent implements OnInit, OnChanges {
 
   deleteFromFavoriteAlbum() {
     this.favoriteArtistService.deleteFromFavoriteArtists(this.artist.favoriteArtistId)
-      .subscribe({
-        complete() {
+      .subscribe(
+        () => {
           this.artist.favoriteArtistId = 0;
           this.isFavorite = false;
         }
-      });
+      );
   }
 }

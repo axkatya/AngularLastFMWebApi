@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AngularLastFMWebApi.Helpers;
 using Business.Interfaces;
@@ -10,12 +9,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AngularLastFMWebApi.Controllers
 {
+    /// <summary>
+    /// The favorite artist controller.
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class FavoriteArtistController : Controller
     {
         private readonly IFavoriteArtistBusiness _favoriteArtistBusiness;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FavoriteArtistController"/> class.
+        /// </summary>
+        /// <param name="favoriteArtistBusiness">The favorite artist business.</param>
         public FavoriteArtistController(IFavoriteArtistBusiness favoriteArtistBusiness)
         {
             _favoriteArtistBusiness = favoriteArtistBusiness;
@@ -47,6 +54,8 @@ namespace AngularLastFMWebApi.Controllers
                 {
                     return Ok(response);
                 }
+
+                return NoContent();
             }
 
             return Unauthorized();
@@ -78,11 +87,18 @@ namespace AngularLastFMWebApi.Controllers
                 {
                     return Ok(response);
                 }
+
+                return NoContent();
             }
 
             return Unauthorized();
         }
 
+        /// <summary>
+        /// Saves the specified artist.
+        /// </summary>
+        /// <param name="artist">The artist.</param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize]
         public IActionResult Post([FromBody]Artist artist)
@@ -105,9 +121,14 @@ namespace AngularLastFMWebApi.Controllers
             return Unauthorized();
         }
 
+        /// <summary>
+        /// Deletes the specified favorite artist identifier.
+        /// </summary>
+        /// <param name="favoriteArtistId">The favorite artist identifier.</param>
+        /// <returns></returns>
         [HttpDelete("{favoriteArtistId}")]
         [Authorize]
-        public async Task<IActionResult> Delete(int favoriteArtistId)
+        public IActionResult Delete(int favoriteArtistId)
         {
             try
             {

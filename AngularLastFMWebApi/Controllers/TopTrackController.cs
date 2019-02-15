@@ -1,20 +1,18 @@
-﻿using Entities;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ServiceAgent;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AngularLastFMWebApi.Controllers
 {
-	/// <summary>
-	/// The top track controller.
-	/// </summary>
-	/// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
-	[Route("api/[controller]")]
+    /// <summary>
+    /// The top track controller.
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
+    [Route("api/[controller]")]
 	public class TopTrackController : Controller
 	{
-		ILastFmServiceAgent _lastFmServiceAgent;
+	    readonly ILastFmServiceAgent _lastFmServiceAgent;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TopTrackController"/> class.
@@ -44,14 +42,14 @@ namespace AngularLastFMWebApi.Controllers
 				{
 					return Ok(response);
 				}
-			}
+
+			    return NoContent();
+            }
 			catch (Exception e)
 			{
 				Console.WriteLine(e);
 				throw;
 			}
-
-			return Ok(new List<Track>());
 		}
 	}
 }

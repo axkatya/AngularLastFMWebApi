@@ -55,8 +55,8 @@ namespace AngularLastFMWebApi
                    // options.AzureSQLDBConnectionString = GetSecretValueFromKeyVault(keyVaultClient, "AzureSQLDBConnectionString");
                     options.SQLDBConnectionString = Configuration.GetConnectionString("SQLDBConnectionString");
                     options.MongoDbEnabled = Configuration.GetSection("MongoDbEnabled").Value == "true";
-                    options.jWTKey = Configuration["Jwt:Key"];
-                    options.jWTIssuer = Configuration["Jwt:Issuer"];
+                    options.JWtKey = Configuration["Jwt:Key"];
+                    options.JWtIssuer = Configuration["Jwt:Issuer"];
                 });
 
             Info info = new Info

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DataAccess.Interfaces;
+using Entities;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -20,7 +22,7 @@ namespace DataAccess.Implementation.Mongo
 		    }
 		}
 		
-		public IEnumerable<Entities.Album> GetFavoriteAlbums(int userId)
+		public async Task<IEnumerable<Album>> GetFavoriteAlbums(int userId)
         {
 		    IEnumerable<Entities.Album> favoriteAlbums;
 
@@ -39,12 +41,12 @@ namespace DataAccess.Implementation.Mongo
             return favoriteAlbums;
 		}
 
-	    public IEnumerable<Entities.Album> GetFavoriteAlbumsByName(string albumName, int userId)
+	    public async Task<IEnumerable<Album>> GetFavoriteAlbumsByName(string albumName, int userId)
 	    {
 	        throw new System.NotImplementedException();
 	    }
 
-	    public int GetFavoriteAlbumsByAlbumNameAndArtistName(string albumName, string artistName, int userId)
+	    public Task<int> GetFavoriteAlbumsByAlbumNameAndArtistName(string albumName, string artistName, int userId)
 	    {
 	        throw new System.NotImplementedException();
 	    }
@@ -57,11 +59,6 @@ namespace DataAccess.Implementation.Mongo
 	    public void DeleteFavoriteAlbum(int favoriteAlbumId)
 	    {
 	        throw new System.NotImplementedException();
-	    }
-
-	    public int GetFavoriteAlbumsByGuid(string albumGuid, int userId)
-	    {
-	        throw new NotImplementedException();
 	    }
 	}
 }

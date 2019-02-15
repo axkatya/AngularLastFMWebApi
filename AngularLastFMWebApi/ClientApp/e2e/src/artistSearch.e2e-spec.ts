@@ -9,14 +9,14 @@ describe('artist search', () => {
 
   it('should display artist name', () => {
     navigateTo();
-    var artistNameSearchInput = element(by.id("lblArtistNameSearch"));
+    const artistNameSearchInput = element(by.id('lblArtistNameSearch'));
     artistNameSearchInput.clear().then(function () {
       artistNameSearchInput.sendKeys('Cher');
     });
 
-    var artistNameSearchButton = element(by.id("btnArtistNameSearch"));
+    const artistNameSearchButton = element(by.id('btnArtistNameSearch'));
     artistNameSearchButton.click();
-    browser.sleep(8000); 
+    browser.sleep(8000);
     expect(element(by.className('card__itemname')).getText()).toEqual('CHER');
   });
 });

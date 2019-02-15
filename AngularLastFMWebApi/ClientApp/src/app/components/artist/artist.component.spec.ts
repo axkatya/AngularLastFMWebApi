@@ -9,7 +9,7 @@ describe('ArtistComponent', () => {
   let component: ArtistComponent;
   let fixture: ComponentFixture<ArtistComponent>;
 
-  let artistServiceStub: Partial<ArtistService> = {};
+  const artistServiceStub: Partial<ArtistService> = {};
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
