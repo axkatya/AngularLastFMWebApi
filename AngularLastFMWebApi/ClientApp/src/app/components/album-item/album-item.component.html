@@ -10,7 +10,7 @@
     </div>
     <div class="card__iteminfo">
       <p *ngIf='isString(album.artist)'>
-        <a [routerLink]="['/artists', album.artist]">{{album.artist}} </a>
+          <a [routerLink]="['/artists']" [queryParams]="{artistNameSearch: album.artist}">{{album.artist}}</a>
       </p>
      
       <p *ngIf="album.playcount">

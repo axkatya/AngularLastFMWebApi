@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService } from '../../services/authentication.service';
 import { AlertService } from '../../services/alert.service';
+import { User } from '../../models/user';
 
 @Component({
   templateUrl: 'login.component.html'
@@ -31,7 +32,11 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.authenticationService.login(this.model.username, this.model.password)
       .subscribe(
-        data => {
+        (data) => {
+            if (data) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('currentUser', JSON.stringify(data));
+            }
           this.router.navigate([this.returnUrl]);
         },
         error => {

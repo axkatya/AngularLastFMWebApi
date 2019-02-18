@@ -1,9 +1,13 @@
 <div  class="item__search">
   Albums
-  <p>
-    <input id="lblAlbumNameSearch" #albumNameSearch placeholder="enter album name">
-    <button id="btnAlbumNameSearch" class="btn" (click)="onClickSearchAlbum(albumNameSearch.value)">Search Album</button>
-  </p>
+    <form #myForm="ngForm">
+        <input #model="ngModel" id="lblAlbumNameSearch" placeholder="enter album name" [(ngModel)]="albumNameSearch" required name="lblAlbumNameSearch" #lblAlbumNameSearch="ngModel">
+        <div *ngIf="lblAlbumNameSearch.errors && (lblAlbumNameSearch.dirty || lblAlbumNameSearch.touched)">
+            Required
+        </div>
+        <button id="btnAlbumNameSearch" class="btn" (click)="onClickSearchAlbum()" [disabled]="!myForm.form.valid">Search Album</button>
+        <button id="btnAlbumNameSearchClear" class="btn" (click)="onClickSearchAlbumClear()">Clear Search</button>
+    </form>
 </div>
 
 <app-album-list [albums]="albums"></app-album-list>

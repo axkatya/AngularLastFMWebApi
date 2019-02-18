@@ -10,19 +10,22 @@ import { LoginComponent } from './/components/login/login.component';
 import { RegisterComponent } from './/components/register/register.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'albums', component: AlbumComponent, canActivate: [AuthGuard] },
-  { path: 'favoriteAlbums', component: FavoriteAlbumComponent, canActivate: [AuthGuard] },
-  { path: 'artists/:artistName', component: ArtistComponent, canActivate: [AuthGuard] },
-  { path: 'artists', component: ArtistComponent, canActivate: [AuthGuard] },
-  { path: 'favoriteArtists', component: FavoriteArtistComponent, canActivate: [AuthGuard] },
-  { path: '', component: AlbumComponent, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: '' }
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
+    { path: 'albums/:albumNameSearch', component: AlbumComponent, canActivate: [AuthGuard] },
+    { path: 'albums', component: AlbumComponent, canActivate: [AuthGuard] },
+    { path: 'favoriteAlbums/:albumNameSearch', component: FavoriteAlbumComponent, canActivate: [AuthGuard] },
+    { path: 'favoriteAlbums', component: FavoriteAlbumComponent, canActivate: [AuthGuard] },
+    { path: 'artists/:artistNameSearch', component: ArtistComponent, canActivate: [AuthGuard] },
+    { path: 'artists', component: ArtistComponent, canActivate: [AuthGuard] },
+    { path: 'favoriteArtists:artistNameSearch', component: FavoriteArtistComponent, canActivate: [AuthGuard] },
+    { path: 'favoriteArtists', component: FavoriteArtistComponent, canActivate: [AuthGuard] },
+    { path: '', component: AlbumComponent, canActivate: [AuthGuard] },
+    { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -1,8 +1,9 @@
 <div  class="item__search">
   My Favorite Albums
   <p>
-    <input id="lblAlbumNameSearch" #albumNameSearch placeholder="enter album name">
-    <button id="btnAlbumNameSearch" class="btn" (click)="onClickSearchAlbum(albumNameSearch.value)">Search Album</button>
+    <input id="lblAlbumNameSearch" placeholder="enter album name"  [(ngModel)]="albumNameSearch">
+      <button id="btnAlbumNameSearch" class="btn" (click)="onClickSearchAlbum()">Search Album</button>
+      <button id="btnAlbumNameSearchClear" class="btn" (click)="onClickSearchAlbumClear()">Clear Search</button>
   </p>
 </div>
 

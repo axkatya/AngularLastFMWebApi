@@ -2,8 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AuthGuard } from './guards/auth.guard';
+import { AuthInterceptor } from './helpers/auth-interceptor';
+
 
 import { AlertComponent } from './components/alert/alert.component';
 import { AppComponent } from './components/app.component';
@@ -37,40 +40,42 @@ import { ArtistListComponent } from './components/artist-list/artist-list.compon
 
 
 @NgModule({
-  declarations: [
-    FavoriteButtonComponent,
-    AlertComponent,
-    AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    AlbumComponent,
-    ArtistComponent,
-    ArtistItemComponent,
-    AlbumListComponent,
-    AlbumItemComponent,
-    RouterLinkDirectiveStub,
-    TrackListComponent,
-    TrackItemComponent,
-    FavoriteAlbumComponent,
-    FavoriteArtistComponent,
-    ArtistListComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpModule,
-    AppRoutingModule,
-    FormsModule
-  ],
-  providers: [
-    AuthGuard,
-    AlbumService,
-    ArtistService,
-    AuthenticationService,
-    AlertService,
-    UserService,
-    FavoriteAlbumService,
-    FavoriteArtistService
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        FavoriteButtonComponent,
+        AlertComponent,
+        AppComponent,
+        LoginComponent,
+        RegisterComponent,
+        AlbumComponent,
+        ArtistComponent,
+        ArtistItemComponent,
+        AlbumListComponent,
+        AlbumItemComponent,
+        RouterLinkDirectiveStub,
+        TrackListComponent,
+        TrackItemComponent,
+        FavoriteAlbumComponent,
+        FavoriteArtistComponent,
+        ArtistListComponent
+    ],
+    imports: [
+        HttpClientModule,
+        BrowserModule,
+        HttpModule,
+        AppRoutingModule,
+        FormsModule
+    ],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        AuthGuard,
+        AlbumService,
+        ArtistService,
+        AuthenticationService,
+        AlertService,
+        UserService,
+        FavoriteAlbumService,
+        FavoriteArtistService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,8 +2,9 @@
 
     Artists
     <p>
-        <input id="lblArtistNameSearch" #artistNameSearch placeholder="enter artist name">
-        <button id="btnArtistNameSearch" class="btn" (click)="onClickSearchArtist(artistNameSearch.value)">Search Artist</button>
+        <input id="lblArtistNameSearch" placeholder="enter artist name"  [(ngModel)]="artistNameSearch">
+        <button id="btnArtistNameSearch" class="btn" (click)="onClickSearchArtist()">Search Artist</button>
+        <button id="btnArtistNameSearchClear" class="btn" (click)="onClickSearchArtistClear()">Clear Search</button>
     </p>
 </div>
 <div *ngIf="artist; else noContent">
