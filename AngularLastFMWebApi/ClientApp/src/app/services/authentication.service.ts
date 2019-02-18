@@ -19,4 +19,14 @@ export class AuthenticationService {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
     }
+
+    getToken() {
+        var token = '';
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && currentUser.token) {
+            token = currentUser.token;
+        }
+
+        return token;
+    }
 }

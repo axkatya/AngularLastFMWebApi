@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Artist } from '../models/artist';
 import { environment } from '../../environments/environment';
 
@@ -10,31 +10,18 @@ export class FavoriteArtistService {
     }
 
     searchFavoriteArtists() {
-        return this.http.get(environment.baseUrl + '/api/favoriteArtist/', this.jwt());
+        return this.http.get(environment.baseUrl + '/api/favoriteArtist/');
     }
 
     searchFavoriteArtistsByName(artistNameSearch: string) {
-        return this.http.get(environment.baseUrl + '/api/favoriteArtist/' + artistNameSearch, this.jwt());
+        return this.http.get(environment.baseUrl + '/api/favoriteArtist/' + artistNameSearch);
     }
 
     saveToFavoriteArtists(artist: Artist) {
-        return this.http.post(environment.baseUrl + '/api/favoriteArtist', artist, this.jwt());
+        return this.http.post(environment.baseUrl + '/api/favoriteArtist', artist);
     }
 
     deleteFromFavoriteArtists(favoriteArtistId: number) {
-        return this.http.delete(environment.baseUrl + '/api/favoriteArtist/' + favoriteArtistId, this.jwt());
-    }
-
-    private jwt() {
-        // create authorization header with jwt token
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            const headers = new HttpHeaders()
-                .set('Content-Type', 'application/json')
-                .set('Authorization', 'Bearer ' + currentUser.token);
-            return {
-                headers: headers
-            };
-        }
+        return this.http.delete(environment.baseUrl + '/api/favoriteArtist/' + favoriteArtistId);
     }
 }

@@ -5,7 +5,8 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AuthGuard } from './guards/auth.guard';
-import { AuthInterceptor } from './helpers/auth-interceptor';
+import { AuthInterceptor } from './helpers/auth.interceptor';
+import { TokenInterceptor } from './helpers/token.interceptor';
 
 
 import { AlertComponent } from './components/alert/alert.component';
@@ -67,6 +68,7 @@ import { ArtistListComponent } from './components/artist-list/artist-list.compon
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
         AuthGuard,
         AlbumService,
         ArtistService,
