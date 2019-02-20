@@ -12,21 +12,21 @@ describe('AlbumComponent', () => {
   const albumServiceStub: Partial<AlbumService> = {};
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [AlbumComponent],
-      providers: [{ provide: AlbumService, useValue: albumServiceStub }],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-    .compileComponents();
+	TestBed.configureTestingModule({
+	  declarations: [AlbumComponent],
+	  providers: [{ provide: AlbumService, useValue: albumServiceStub }],
+	  schemas: [NO_ERRORS_SCHEMA]
+	})
+	.compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AlbumComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+	fixture = TestBed.createComponent(AlbumComponent);
+	component = fixture.componentInstance;
+	fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+	expect(component).toBeTruthy();
   });
 });

@@ -5,10 +5,10 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class AlbumService {
 
-    constructor(private http: HttpClient) {
-    }
+	constructor(private http: HttpClient) {
+	}
 
-    searchAlbum(albumNameSearch: string) {
-        return this.http.get(environment.baseUrl + '/api/album/' + albumNameSearch);
-    }
+	searchAlbum(albumNameSearch: string) {
+		return this.http.get(environment.baseUrl + '/api/album/' + albumNameSearch);
+	}
 }

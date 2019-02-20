@@ -4,12 +4,12 @@ import { FavoriteArtistService } from './favorite-artist.service';
 
 describe('FavoriteArtistService', () => {
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [FavoriteArtistService]
-    });
+	TestBed.configureTestingModule({
+	  providers: [FavoriteArtistService]
+	});
   });
 
   it('should be created', inject([FavoriteArtistService], (service: FavoriteArtistService) => {
-    expect(service).toBeTruthy();
+	expect(service).toBeTruthy();
   }));
 });

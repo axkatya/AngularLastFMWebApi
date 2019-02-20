@@ -7,19 +7,19 @@ describe('FavoriteButtonComponent', () => {
   let fixture: ComponentFixture<FavoriteButtonComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ FavoriteButtonComponent ]
-    })
-    .compileComponents();
+	TestBed.configureTestingModule({
+	  declarations: [ FavoriteButtonComponent ]
+	})
+	.compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FavoriteButtonComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+	fixture = TestBed.createComponent(FavoriteButtonComponent);
+	component = fixture.componentInstance;
+	fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+	expect(component).toBeTruthy();
   });
 });

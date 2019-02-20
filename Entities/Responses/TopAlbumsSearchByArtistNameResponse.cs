@@ -3,10 +3,10 @@
 namespace Entities
 {
 	public class TopAlbumsSearchByArtistNameResponse
-    {
-	    [JsonProperty("topalbums")]
+	{
+		[JsonProperty("topalbums")]
 		public TopAlbums TopAlbums { get; set; }
-    }
+	}
 
 	public class TopAlbums
 	{

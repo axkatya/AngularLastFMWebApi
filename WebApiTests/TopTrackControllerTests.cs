@@ -10,10 +10,11 @@ using Xunit;
 namespace WebApiTests
 {
 	public class TopTrackControllerTests
-    {
-		TopTrackController _controller;
-		Mock<ILastFmServiceAgent> _lastFmServiceMock;
-		IEnumerable<Track> _mockTracks;
+	{
+		private TopTrackController _controller;
+		private readonly Mock<ILastFmServiceAgent> _lastFmServiceMock;
+		private readonly IEnumerable<Track> _mockTracks;
+
 		public TopTrackControllerTests()
 		{
 			_lastFmServiceMock = new Mock<ILastFmServiceAgent>();
@@ -32,7 +33,7 @@ namespace WebApiTests
 			_controller = new TopTrackController(_lastFmServiceMock.Object);
 
 			// Act
-			IActionResult actionResult = await _controller.Get("Cher");
+			IActionResult actionResult = await _controller.Get("Cher").ConfigureAwait(false);
 
 			// Assert
 			Assert.NotNull(actionResult);

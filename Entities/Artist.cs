@@ -43,13 +43,13 @@ namespace Entities
 		[JsonProperty("bio")]
 		public Bio Bio { get; set; }
 
-	    /// <summary>
-	    /// Gets or sets the favorite artist id.
-	    /// </summary>
-	    /// <value>
-	    /// The favorite artist id.
-	    /// </value>
-        [JsonProperty("favoriteArtistId")]
-	    public int FavoriteArtistId { get; set; }
-    }
+		/// <summary>
+		/// Gets or sets the favorite artist id.
+		/// </summary>
+		/// <value>
+		/// The favorite artist id.
+		/// </value>
+		[JsonProperty("favoriteArtistId")]
+		public int FavoriteArtistId { get; set; }
+	}
 }

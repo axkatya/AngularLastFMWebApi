@@ -2,10 +2,10 @@
 
 namespace DataAccess.Interfaces
 {
-    public interface IAccountRepository
-    {
-        Task<int> GetUser(string login, string password);
+	public interface IAccountRepository
+	{
+		Task<int> GetUser(string login, string password);
 
-        Task<int> Create(string login, string password);
-    }
+		Task<int> Create(string login, string password);
+	}
 }

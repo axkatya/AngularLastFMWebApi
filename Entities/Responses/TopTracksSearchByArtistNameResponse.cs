@@ -3,8 +3,8 @@
 namespace Entities
 {
 	public class TopTracksSearchByArtistNameResponse
-    {
-	    [JsonProperty("toptracks")]
+	{
+		[JsonProperty("toptracks")]
 		public TopTracks TopTracks { get; set; }
 	}
 

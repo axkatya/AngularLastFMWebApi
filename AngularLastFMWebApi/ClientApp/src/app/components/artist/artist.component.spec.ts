@@ -12,22 +12,22 @@ describe('ArtistComponent', () => {
   const artistServiceStub: Partial<ArtistService> = {};
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [ArtistComponent],
-      providers: [{ provide: ArtistService, useValue: artistServiceStub }],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-      .compileComponents();
+	TestBed.configureTestingModule({
+	  imports: [RouterTestingModule],
+	  declarations: [ArtistComponent],
+	  providers: [{ provide: ArtistService, useValue: artistServiceStub }],
+	  schemas: [NO_ERRORS_SCHEMA]
+	})
+	  .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ArtistComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+	fixture = TestBed.createComponent(ArtistComponent);
+	component = fixture.componentInstance;
+	fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+	expect(component).toBeTruthy();
   });
 });

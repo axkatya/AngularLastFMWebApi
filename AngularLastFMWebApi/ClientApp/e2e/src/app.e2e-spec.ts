@@ -4,11 +4,11 @@ describe('workspace-project App', () => {
   let page: AppPage;
 
   beforeEach(() => {
-    page = new AppPage();
+	page = new AppPage();
   });
 
   it('should display header', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Last FM');
+	page.navigateTo();
+	expect(page.getParagraphText()).toEqual('Last FM');
   });
 });

@@ -1,18 +1,21 @@
 <div class="container__search">
 
-    Artists
-    <p>
-        <input id="lblArtistNameSearch" placeholder="enter artist name"  [(ngModel)]="artistNameSearch">
-        <button id="btnArtistNameSearch" class="btn" (click)="onClickSearchArtist()">Search Artist</button>
-        <button id="btnArtistNameSearchClear" class="btn" (click)="onClickSearchArtistClear()">Clear Search</button>
-    </p>
+	Artists
+	<form #artistForm="ngForm">
+		<input id="lblArtistNameSearch" placeholder="enter artist name" [(ngModel)]="artistNameSearch" required name="lblArtistNameSearch" #lblArtistNameSearch="ngModel">
+		<div *ngIf="lblArtistNameSearch.errors && (lblArtistNameSearch.dirty || lblArtistNameSearch.touched)">
+			Required
+		</div>
+		<button id="btnArtistNameSearch" class="btn" (click)="onClickSearchArtist()"  [disabled]="!artistForm.form.valid">Search Artist</button>
+		<button id="btnArtistNameSearchClear" class="btn" (click)="onClickSearchArtistClear()">Clear Search</button>
+	</form>
 </div>
 <div *ngIf="artist; else noContent">
-    <app-artist-item [artist]="artist" [topTracks]="topTracks" [topAlbums]="topAlbums"></app-artist-item>
+	<app-artist-item [artist]="artist" [topTracks]="topTracks" [topAlbums]="topAlbums"></app-artist-item>
 </div>
 
 <ng-template #noContent>
-    No content
+	No content
 </ng-template>
 
 

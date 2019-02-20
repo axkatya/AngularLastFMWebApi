@@ -2,26 +2,26 @@
 
 namespace IntegrationTests
 {
-    public class FavoriteAlbumControllerTests : IClassFixture<TestServerFixture>
-    {
-        private readonly TestServerFixture _fixture;
+	public class FavoriteAlbumControllerTests : IClassFixture<TestServerFixture>
+	{
+		private readonly TestServerFixture _fixture;
 
-        public FavoriteAlbumControllerTests(TestServerFixture fixture)
-        {
-            _fixture = fixture;
-        }
+		public FavoriteAlbumControllerTests(TestServerFixture fixture)
+		{
+			_fixture = fixture;
+		}
 
-        [Fact]
-        public async System.Threading.Tasks.Task Get_WhenCalled_ReturnsAllItemsAsync()
-        {
-            // Act
-            var response = await _fixture.Client.GetAsync("/api/favoriteAlbum/");
+		[Fact]
+		public async System.Threading.Tasks.Task Get_WhenCalled_ReturnsAllItemsAsync()
+		{
+			// Act
+			var response = await _fixture.Client.GetAsync("/api/favoriteAlbum/").ConfigureAwait(false);
 
-            // Assert
-            response.EnsureSuccessStatusCode();
+			// Assert
+			response.EnsureSuccessStatusCode();
 
-            var responseString = await response.Content.ReadAsStringAsync();
-            Assert.Contains("Love", responseString);
-        }
-    }
+			var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+			Assert.Contains("Love", responseString);
+		}
+	}
 }

@@ -5,40 +5,43 @@ using System.Threading.Tasks;
 
 namespace Business
 {
-    public class AccountBusiness : IAccountBusiness
-    {
-        private readonly IAccountRepository _accountRepository;
+	/// <summary>
+	/// The account business.
+	/// </summary>
+	/// <seealso cref="Business.Interfaces.IAccountBusiness" />
+	public class AccountBusiness : IAccountBusiness
+	{
+		private readonly IAccountRepository _accountRepository;
 
-        public AccountBusiness(IAccountRepository accountRepository)
-        {
-            _accountRepository = accountRepository;
-        }
-        public async Task<Account> GetAccount(string username, string password)
-        {
-            var userId = await _accountRepository.GetUser(username, password);
-            if (userId > 0)
-            {
-                var user = new Account();
+		/// <summary>
+		/// Initializes a new instance of the <see cref="AccountBusiness"/> class.
+		/// </summary>
+		/// <param name="accountRepository">The account repository.</param>
+		public AccountBusiness(IAccountRepository accountRepository)
+		{
+			_accountRepository = accountRepository;
+		}
 
-                // remove password before returning
-                user.UserId = userId;
-                user.Username = username;
-                user.Password = null;
-                return user;
-            }
+		public async Task<Account> GetAccount(string login, string password)
+		{
+			var userId = await _accountRepository.GetUser(login, password).ConfigureAwait(false);
+			if (userId > 0)
+			{
+				return new Account {UserId = userId, Username = login, Password = null};
+			}
 
-            return null;
-        }
+			return null;
+		}
 
-        public async Task<int> Create(string username, string password)
-        {
-            var userId = await _accountRepository.Create(username, password);
-            if (userId > 0)
-            {
-                return userId;
-            }
+		public async Task<int> Create(string login, string password)
+		{
+			var userId = await _accountRepository.Create(login, password).ConfigureAwait(false);
+			if (userId > 0)
+			{
+				return userId;
+			}
 
-            return 0;
-        }
-    }
+			return 0;
+		}
+	}
 }

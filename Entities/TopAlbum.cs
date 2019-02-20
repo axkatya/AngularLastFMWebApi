@@ -6,7 +6,7 @@ namespace Entities
 	/// The top album entity.
 	/// </summary>
 	public class TopAlbum
-    {
+	{
 		/// <summary>
 		/// Gets or sets the name.
 		/// </summary>
@@ -14,7 +14,7 @@ namespace Entities
 		/// The name.
 		/// </value>
 		[JsonProperty("name")]
-	    public string Name { get; set; }
+		public string Name { get; set; }
 
 		/// <summary>
 		/// Gets or sets the URL.
@@ -23,7 +23,7 @@ namespace Entities
 		/// The URL.
 		/// </value>
 		[JsonProperty("url")]
-	    public string Url { get; set; }
+		public string Url { get; set; }
 
 		/// <summary>
 		/// Gets or sets the image.
@@ -32,7 +32,7 @@ namespace Entities
 		/// The image.
 		/// </value>
 		[JsonProperty("image")]
-	    public Image[] Image { get; set; }
+		public Image[] Image { get; set; }
 
 		/// <summary>
 		/// Gets or sets the play count.
@@ -41,15 +41,15 @@ namespace Entities
 		/// The play count.
 		/// </value>
 		[JsonProperty("playCount")]
-	    public int PlayCount { get; set; }
+		public int PlayCount { get; set; }
 
-        /// <summary>
-        /// Gets or sets the favorite album id.
-        /// </summary>
-        /// <value>
-        /// The favorite album id.
-        /// </value>
-        [JsonProperty("favoriteAlbumId")]
-        public int FavoriteAlbumId { get; set; }
-    }
+		/// <summary>
+		/// Gets or sets the favorite album id.
+		/// </summary>
+		/// <value>
+		/// The favorite album id.
+		/// </value>
+		[JsonProperty("favoriteAlbumId")]
+		public int FavoriteAlbumId { get; set; }
+	}
 }

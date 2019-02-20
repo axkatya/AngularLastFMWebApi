@@ -6,22 +6,22 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class FavoriteArtistService {
 
-    constructor(private http: HttpClient) {
-    }
+	constructor(private http: HttpClient) {
+	}
 
-    searchFavoriteArtists() {
-        return this.http.get(environment.baseUrl + '/api/favoriteArtist/');
-    }
+	searchFavoriteArtists() {
+		return this.http.get(environment.baseUrl + '/api/favoriteArtist/');
+	}
 
-    searchFavoriteArtistsByName(artistNameSearch: string) {
-        return this.http.get(environment.baseUrl + '/api/favoriteArtist/' + artistNameSearch);
-    }
+	searchFavoriteArtistsByName(artistNameSearch: string) {
+		return this.http.get(environment.baseUrl + '/api/favoriteArtist/' + artistNameSearch);
+	}
 
-    saveToFavoriteArtists(artist: Artist) {
-        return this.http.post(environment.baseUrl + '/api/favoriteArtist', artist);
-    }
+	saveToFavoriteArtists(artist: Artist) {
+		return this.http.post(environment.baseUrl + '/api/favoriteArtist', artist);
+	}
 
-    deleteFromFavoriteArtists(favoriteArtistId: number) {
-        return this.http.delete(environment.baseUrl + '/api/favoriteArtist/' + favoriteArtistId);
-    }
+	deleteFromFavoriteArtists(favoriteArtistId: number) {
+		return this.http.delete(environment.baseUrl + '/api/favoriteArtist/' + favoriteArtistId);
+	}
 }

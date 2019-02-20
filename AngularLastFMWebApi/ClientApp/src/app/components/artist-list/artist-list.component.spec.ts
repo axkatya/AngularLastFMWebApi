@@ -7,19 +7,19 @@ describe('ArtistListComponent', () => {
   let fixture: ComponentFixture<ArtistListComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ArtistListComponent ]
-    })
-    .compileComponents();
+	TestBed.configureTestingModule({
+	  declarations: [ ArtistListComponent ]
+	})
+	.compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ArtistListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+	fixture = TestBed.createComponent(ArtistListComponent);
+	component = fixture.componentInstance;
+	fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+	expect(component).toBeTruthy();
   });
 });

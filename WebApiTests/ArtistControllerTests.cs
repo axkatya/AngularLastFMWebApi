@@ -1,22 +1,24 @@
 ﻿using AngularLastFMWebApi.Controllers;
+using Business.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using ServiceAgent;
 using System.Threading.Tasks;
-using Business.Interfaces;
 using Xunit;
 
 namespace WebApiTests
 {
 	public class ArtistControllerTests
-    {
-		ArtistController _controller;
-		Mock<ILastFmServiceAgent> _lastFmServiceMock;
-        Mock<IFavoriteArtistBusiness> _favoriteArtistBusinessMock;
-        Artist _mockArtist;
-		public ArtistControllerTests()
+	{
+		private ArtistController _controller;
+		private readonly Mock<ILastFmServiceAgent> _lastFmServiceMock;
+		private readonly Mock<IFavoriteArtistBusiness> _favoriteArtistBusinessMock;
+		private readonly Artist _mockArtist;
+
+		public ArtistControllerTests(Mock<IFavoriteArtistBusiness> favoriteArtistBusinessMock)
 		{
+			_favoriteArtistBusinessMock = favoriteArtistBusinessMock;
 			_lastFmServiceMock = new Mock<ILastFmServiceAgent>();
 			_mockArtist = new Artist
 			{
@@ -32,7 +34,7 @@ namespace WebApiTests
 			_controller = new ArtistController(_lastFmServiceMock.Object, _favoriteArtistBusinessMock.Object);
 
 			// Act
-			IActionResult actionResult = await _controller.Get("Cher");
+			IActionResult actionResult = await _controller.Get("Cher").ConfigureAwait(false);
 
 			// Assert
 			Assert.NotNull(actionResult);

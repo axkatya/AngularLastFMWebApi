@@ -41,21 +41,21 @@ namespace DataAccess.Implementation
 		[BsonElement("artistName")]
 		public string Artist { get; set; }
 
-	    /// <summary>
-	    /// Gets or sets the image url.
-	    /// </summary>
-	    /// <value>
-	    /// The image url.
-	    /// </value>
-	    public string Image { get; set; }
+		/// <summary>
+		/// Gets or sets the image url.
+		/// </summary>
+		/// <value>
+		/// The image url.
+		/// </value>
+		public string Image { get; set; }
 
-        /// <summary>
-        /// Gets or sets the URL.
-        /// </summary>
-        /// <value>
-        /// The URL.
-        /// </value>
-        [BsonElement("url")]
+		/// <summary>
+		/// Gets or sets the URL.
+		/// </summary>
+		/// <value>
+		/// The URL.
+		/// </value>
+		[BsonElement("url")]
 		public string Url { get; set; }
 	}
 }

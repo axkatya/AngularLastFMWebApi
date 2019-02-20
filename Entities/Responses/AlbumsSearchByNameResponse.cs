@@ -27,7 +27,7 @@ namespace Entities
 	}
 
 	public class AlbumsSearchByNameResponse
-    {
+	{
 		/// <summary>
 		/// Gets or sets the results.
 		/// </summary>

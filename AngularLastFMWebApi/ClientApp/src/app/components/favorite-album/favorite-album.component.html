@@ -1,10 +1,12 @@
-<div  class="item__search">
-  My Favorite Albums
-  <p>
-    <input id="lblAlbumNameSearch" placeholder="enter album name"  [(ngModel)]="albumNameSearch">
-      <button id="btnAlbumNameSearch" class="btn" (click)="onClickSearchAlbum()">Search Album</button>
-      <button id="btnAlbumNameSearchClear" class="btn" (click)="onClickSearchAlbumClear()">Clear Search</button>
-  </p>
+<div class="item__search">
+	My Favorite Albums
+	<form #favoriteAlbumForm="ngForm">
+		<input id="lblAlbumNameSearch" placeholder="enter album name" [(ngModel)]="albumNameSearch" required name="lblAlbumNameSearch" #lblAlbumNameSearch="ngModel">
+		<div *ngIf="lblAlbumNameSearch.errors && (lblAlbumNameSearch.dirty || lblAlbumNameSearch.touched)">
+			Required
+		</div>
+		<button id="btnAlbumNameSearch" class="btn" (click)="onClickSearchAlbum()" [disabled]="!favoriteAlbumForm.form.valid">Search Album</button>
+		<button id="btnAlbumNameSearchClear" class="btn" (click)="onClickSearchAlbumClear()">Clear Search</button>
+	</form>
 </div>
-
-<app-album-list [albums]="albums"></app-album-list>
+<app-album-list [albums]="albums" (refreshEvent)="refresh($event)"></app-album-list>

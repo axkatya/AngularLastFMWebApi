@@ -15,11 +15,11 @@ export class FavoriteButtonComponent implements OnChanges {
   @Output() toggle = new EventEmitter();
 
   ngOnChanges(changes: SimpleChanges) {
-    const isFavoriteChange: SimpleChange = changes.isFavorite;
-    this._isFavorite = isFavoriteChange.currentValue;
+	const isFavoriteChange: SimpleChange = changes.isFavorite;
+	this._isFavorite = isFavoriteChange.currentValue;
   }
 
   toggleFavorite() {
-      return this.toggle.emit();
+	  return this.toggle.emit();
   }
 }

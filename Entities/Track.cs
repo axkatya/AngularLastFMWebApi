@@ -6,7 +6,7 @@ namespace Entities
 	/// The track entity.
 	/// </summary>
 	public class Track
-    {
+	{
 		/// <summary>
 		/// Gets or sets the name.
 		/// </summary>
@@ -14,7 +14,7 @@ namespace Entities
 		/// The name.
 		/// </value>
 		[JsonProperty("name")]
-	    public string Name { get; set; }
+		public string Name { get; set; }
 
 		/// <summary>
 		/// Gets or sets the listeners.
@@ -23,7 +23,7 @@ namespace Entities
 		/// The listeners.
 		/// </value>
 		[JsonProperty("listeners")]
-	    public int Listeners { get; set; }
+		public int Listeners { get; set; }
 
 		/// <summary>
 		/// Gets or sets the URL.
@@ -32,6 +32,6 @@ namespace Entities
 		/// The URL.
 		/// </value>
 		[JsonProperty("url")]
-	    public string Url { get; set; }
+		public string Url { get; set; }
 	}
 }

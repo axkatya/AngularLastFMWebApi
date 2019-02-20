@@ -3,8 +3,8 @@
 namespace Entities
 {
 	public class ArtistSearchByNameResponse
-    {
-	    [JsonProperty("artist")]
+	{
+		[JsonProperty("artist")]
 		public Artist Artist { get; set; }
-    }
+	}
 }

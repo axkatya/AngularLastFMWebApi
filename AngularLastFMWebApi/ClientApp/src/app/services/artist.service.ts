@@ -5,19 +5,19 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ArtistService {
-    constructor(private http: HttpClient) {
+	constructor(private http: HttpClient) {
 
-    }
+	}
 
-    searchArtist(artistNameSearch: string) {
-        return this.http.get(environment.baseUrl + '/api/artist/' + artistNameSearch);
-    }
+	searchArtist(artistNameSearch: string) {
+		return this.http.get(environment.baseUrl + '/api/artist/' + artistNameSearch);
+	}
 
-    searchArtistTopTracks(artistNameSearch: string) {
-        return this.http.get(environment.baseUrl + '/api/toptrack/' + artistNameSearch);
-    }
+	searchArtistTopTracks(artistNameSearch: string) {
+		return this.http.get(environment.baseUrl + '/api/toptrack/' + artistNameSearch);
+	}
 
-    searchArtistTopAlbums(artistNameSearch: string) {
-        return this.http.get(environment.baseUrl + '/api/topalbum/' + artistNameSearch);
-    }
+	searchArtistTopAlbums(artistNameSearch: string) {
+		return this.http.get(environment.baseUrl + '/api/topalbum/' + artistNameSearch);
+	}
 }

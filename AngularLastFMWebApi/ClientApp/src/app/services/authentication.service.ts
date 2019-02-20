@@ -6,27 +6,27 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthenticationService {
-    constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient) { }
 
-    login(username: string, password: string) {
-        const body = JSON.stringify({ username: username, password: password });
-        const headerOptions = new HttpHeaders({ 'Content-Type': 'application/json' });
+	login(username: string, password: string) {
+		const body = JSON.stringify({ username: username, password: password });
+		const headerOptions = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-        return this.http.post<any>(environment.baseUrl + '/api/account/authenticate', body, { headers: headerOptions });
-    }
+		return this.http.post<any>(environment.baseUrl + '/api/account/authenticate', body, { headers: headerOptions });
+	}
 
-    logout() {
-        // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
-    }
+	logout() {
+		// remove user from local storage to log user out
+		localStorage.removeItem('currentUser');
+	}
 
-    getToken() {
-        var token = '';
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            token = currentUser.token;
-        }
+	getToken() {
+		var token = '';
+		var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		if (currentUser && currentUser.token) {
+			token = currentUser.token;
+		}
 
-        return token;
-    }
+		return token;
+	}
 }

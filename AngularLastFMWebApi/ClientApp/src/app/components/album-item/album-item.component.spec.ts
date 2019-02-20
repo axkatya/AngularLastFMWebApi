@@ -8,21 +8,21 @@ describe('AlbumItemComponent', () => {
   let fixture: ComponentFixture<AlbumItemComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [AlbumItemComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-      .compileComponents();
+	TestBed.configureTestingModule({
+	  imports: [RouterTestingModule],
+	  declarations: [AlbumItemComponent],
+	  schemas: [NO_ERRORS_SCHEMA]
+	})
+	  .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AlbumItemComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+	fixture = TestBed.createComponent(AlbumItemComponent);
+	component = fixture.componentInstance;
+	fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+	expect(component).toBeTruthy();
   });
 });

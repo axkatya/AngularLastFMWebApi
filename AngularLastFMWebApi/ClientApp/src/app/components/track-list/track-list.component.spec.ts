@@ -8,20 +8,20 @@ describe('TrackListComponent', () => {
   let fixture: ComponentFixture<TrackListComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [TrackListComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-    .compileComponents();
+	TestBed.configureTestingModule({
+	  declarations: [TrackListComponent],
+	  schemas: [NO_ERRORS_SCHEMA]
+	})
+	.compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TrackListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+	fixture = TestBed.createComponent(TrackListComponent);
+	component = fixture.componentInstance;
+	fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+	expect(component).toBeTruthy();
   });
 });

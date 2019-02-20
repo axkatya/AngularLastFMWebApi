@@ -7,26 +7,26 @@ exports.config = {
   allScriptsTimeout: 11000,
   seleniumAddress: 'http://localhost:4444/wd/hub',
   specs: [
-    './src/**/*.e2e-spec.ts'
+	'./src/**/*.e2e-spec.ts'
   ],
   capabilities: {
-    'browserName': 'chrome',
-    chromeOptions: {
-      args: ['--no-sandbox']
-    }   
+	'browserName': 'chrome',
+	chromeOptions: {
+	  args: ['--no-sandbox']
+	}   
   },
   directConnect: true,
   baseUrl: 'https://localhost:44355/',
   framework: 'jasmine',
   jasmineNodeOpts: {
-    showColors: true,
-    defaultTimeoutInterval: 30000,
-    print: function() {}
+	showColors: true,
+	defaultTimeoutInterval: 30000,
+	print: function() {}
   },
   onPrepare() {
-    require('ts-node').register({
-      project: require('path').join(__dirname, './tsconfig.e2e.json')
-    });
-    jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
+	require('ts-node').register({
+	  project: require('path').join(__dirname, './tsconfig.e2e.json')
+	});
+	jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
   }
 };

@@ -41,43 +41,43 @@ import { ArtistListComponent } from './components/artist-list/artist-list.compon
 
 
 @NgModule({
-    declarations: [
-        FavoriteButtonComponent,
-        AlertComponent,
-        AppComponent,
-        LoginComponent,
-        RegisterComponent,
-        AlbumComponent,
-        ArtistComponent,
-        ArtistItemComponent,
-        AlbumListComponent,
-        AlbumItemComponent,
-        RouterLinkDirectiveStub,
-        TrackListComponent,
-        TrackItemComponent,
-        FavoriteAlbumComponent,
-        FavoriteArtistComponent,
-        ArtistListComponent
-    ],
-    imports: [
-        HttpClientModule,
-        BrowserModule,
-        HttpModule,
-        AppRoutingModule,
-        FormsModule
-    ],
-    providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-        AuthGuard,
-        AlbumService,
-        ArtistService,
-        AuthenticationService,
-        AlertService,
-        UserService,
-        FavoriteAlbumService,
-        FavoriteArtistService
-    ],
-    bootstrap: [AppComponent]
+	declarations: [
+		FavoriteButtonComponent,
+		AlertComponent,
+		AppComponent,
+		LoginComponent,
+		RegisterComponent,
+		AlbumComponent,
+		ArtistComponent,
+		ArtistItemComponent,
+		AlbumListComponent,
+		AlbumItemComponent,
+		RouterLinkDirectiveStub,
+		TrackListComponent,
+		TrackItemComponent,
+		FavoriteAlbumComponent,
+		FavoriteArtistComponent,
+		ArtistListComponent
+	],
+	imports: [
+		HttpClientModule,
+		BrowserModule,
+		HttpModule,
+		AppRoutingModule,
+		FormsModule
+	],
+	providers: [
+		{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+		AuthGuard,
+		AlbumService,
+		ArtistService,
+		AuthenticationService,
+		AlertService,
+		UserService,
+		FavoriteAlbumService,
+		FavoriteArtistService
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace AngularLastFMWebApi.Controllers
 {
-    /// <summary>
-    /// The top track controller.
-    /// </summary>
-    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
-    [Route("api/[controller]")]
+	/// <summary>
+	/// The top track controller.
+	/// </summary>
+	/// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
+	[Route("api/[controller]")]
 	public class TopTrackController : Controller
 	{
-	    readonly ILastFmServiceAgent _lastFmServiceAgent;
+		private readonly ILastFmServiceAgent _lastFmServiceAgent;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TopTrackController"/> class.
@@ -28,8 +28,8 @@ namespace AngularLastFMWebApi.Controllers
 		/// </summary>
 		/// <param name="artistName">Name of the artist.</param>
 		/// <returns>Top Track list</returns>
-		/// <response code="200">Top Track list</response>
-		/// <response code="400">Error model</response> 
+		/// <response code="200">Top Track list.</response>
+		/// <response code="400">Error model.</response>
 		[HttpGet("{artistName}")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
@@ -43,8 +43,8 @@ namespace AngularLastFMWebApi.Controllers
 					return Ok(response);
 				}
 
-			    return NoContent();
-            }
+				return NoContent();
+			}
 			catch (Exception e)
 			{
 				Console.WriteLine(e);

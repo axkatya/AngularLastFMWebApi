@@ -7,7 +7,7 @@ namespace Entities
 	/// The album entity.
 	/// </summary>
 	public class Album
-    {
+	{
 		/// <summary>
 		/// Gets or sets the name.
 		/// </summary>
@@ -44,13 +44,13 @@ namespace Entities
 		[JsonProperty("image")]
 		public Image[] Image { get; set; }
 
-        /// <summary>
-        /// Gets or sets the favorite album id.
-        /// </summary>
-        /// <value>
-        /// The favorite album id.
-        /// </value>
-        [JsonProperty("favoriteAlbumId")]
-        public int FavoriteAlbumId { get; set; }
-    }
+		/// <summary>
+		/// Gets or sets the favorite album id.
+		/// </summary>
+		/// <value>
+		/// The favorite album id.
+		/// </value>
+		[JsonProperty("favoriteAlbumId")]
+		public int FavoriteAlbumId { get; set; }
+	}
 }

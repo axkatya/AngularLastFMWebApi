@@ -1,9 +1,14 @@
 using AngularLastFMWebApi.Azure;
+using AngularLastFMWebApi.Helpers.Azure;
 using Business;
 using Business.Interfaces;
 using DataAccess.Implementation;
+using DataAccess.Implementation.Mongo;
+using DataAccess.Implementation.SQL;
+using DataAccess.Implementation.SQL.Search;
 using DataAccess.Interfaces;
 using Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -12,22 +17,17 @@ using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using ServiceAgent;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using DataAccess.Implementation.Mongo;
-using DataAccess.Implementation.SQL;
-using DataAccess.Implementation.SQL.Search;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
 
 namespace AngularLastFMWebApi
 {
-    public class Startup
+	public class Startup
 	{
 		public Startup(IConfiguration configuration)
 		{
@@ -39,27 +39,28 @@ namespace AngularLastFMWebApi
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-		    services.AddCors();
-		    //services.AddDefaultIdentity<Account>();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddCors();
+			//services.AddDefaultIdentity<Account>();
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-		    var azureServiceTokenProvider = new AzureServiceTokenProvider();
-		    var keyVaultClient = new KeyVaultClient(
-		        new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+			var azureServiceTokenProvider = new AzureServiceTokenProvider();
+			var keyVaultClient = new KeyVaultClient(
+				new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
 
-            services.Configure<Settings>(
-                options =>
-                {
-	                //options.AzureCosmosDBConnectionString = GetSecretValueFromKeyVault(keyVaultClient, "AzureCosmosDBConnectionString");
-	                //options.AzureCosmosDatabaseBookmarks = Configuration.GetSection("AzureCosmosDatabaseBookmarks").Value;
-                   // options.AzureSQLDBConnectionString = GetSecretValueFromKeyVault(keyVaultClient, "AzureSQLDBConnectionString");
-                    options.SQLDBConnectionString = Configuration.GetConnectionString("SQLDBConnectionString");
-                    options.MongoDbEnabled = Configuration.GetSection("MongoDbEnabled").Value == "true";
-                    options.JWtKey = Configuration["Jwt:Key"];
-                    options.JWtIssuer = Configuration["Jwt:Issuer"];
-                });
+			services.Configure<Settings>(
+				options =>
+				{
+					//options.AzureCosmosDBConnectionString = GetSecretValueFromKeyVault(keyVaultClient, "AzureCosmosDBConnectionString");
+					//options.AzureCosmosDatabaseBookmarks = Configuration.GetSection("AzureCosmosDatabaseBookmarks").Value;
+					// options.AzureSQLDBConnectionString = GetSecretValueFromKeyVault(keyVaultClient, "AzureSQLDBConnectionString");
+					options.SQLDBConnectionString = Configuration.GetConnectionString("SQLDBConnectionString");
+					options.MongoDbEnabled = string.Equals(Configuration.GetSection("MongoDbEnabled").Value, "true",
+						StringComparison.Ordinal);
+					options.JWtKey = Configuration["Jwt:Key"];
+					options.JWtIssuer = Configuration["Jwt:Issuer"];
+				});
 
-            Info info = new Info
+			Info info = new Info
 			{
 				Title = "Last FM API",
 				Version = "v1"
@@ -79,50 +80,47 @@ namespace AngularLastFMWebApi
 				}
 			});
 
-		    var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
-		    services.AddAuthentication(x =>
-		        {
-		            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-		            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-		        })
-		        .AddJwtBearer(x =>
-		        {
-		            x.RequireHttpsMetadata = false;
-		            x.SaveToken = true;
-		            x.TokenValidationParameters = new TokenValidationParameters
-		            {
-		                ValidateIssuer = true,
-		                ValidateAudience = true,
-		                ValidateLifetime = true,
-		                ValidateIssuerSigningKey = true,
-		                ValidIssuer = Configuration["Jwt:Issuer"],
-		                ValidAudience = Configuration["Jwt:Issuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(key)
-		            };
-		        });
+			var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
+			services.AddAuthentication(x =>
+				{
+					x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+					x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+				})
+				.AddJwtBearer(x =>
+				{
+					x.RequireHttpsMetadata = false;
+					x.SaveToken = true;
+					x.TokenValidationParameters = new TokenValidationParameters
+					{
+						ValidateIssuer = true,
+						ValidateAudience = true,
+						ValidateLifetime = true,
+						ValidateIssuerSigningKey = true,
+						ValidIssuer = Configuration["Jwt:Issuer"],
+						ValidAudience = Configuration["Jwt:Issuer"],
+						IssuerSigningKey = new SymmetricSecurityKey(key)
+					};
+				});
 
-		   // services.AddTransient<UserManager<Account>>();
-            services.AddScoped<ILastFmServiceAgent, LastFmServiceAgent>();
+			// services.AddTransient<UserManager<Account>>();
+			services.AddScoped<ILastFmServiceAgent, LastFmServiceAgent>();
 			services.AddScoped<IFavoriteAlbumRepository, DataBaseStrategy>();
-            services.AddScoped<IFavoriteAlbumBusiness, FavoriteAlbumBusiness>();
-		    services.AddScoped<IFavoriteArtistRepository, FavoriteArtistRepository>();
-		    services.AddScoped<IFavoriteArtistBusiness, FavoriteArtistBusiness>();
-            services.AddScoped<MongoFavoriteAlbumRepository>();
-		    services.AddScoped<FavoriteAlbumRepository>();
-		    services.AddScoped<SQLSearchFavoriteAlbumRepository>();
-		    services.AddScoped<IAccountRepository, AccountRepository>();
-		    services.AddScoped<IAccountBusiness, AccountBusiness>();
+			services.AddScoped<IFavoriteAlbumBusiness, FavoriteAlbumBusiness>();
+			services.AddScoped<IFavoriteArtistRepository, FavoriteArtistRepository>();
+			services.AddScoped<IFavoriteArtistBusiness, FavoriteArtistBusiness>();
+			services.AddScoped<MongoFavoriteAlbumRepository>();
+			services.AddScoped<FavoriteAlbumRepository>();
+			services.AddScoped<SQLSearchFavoriteAlbumRepository>();
+			services.AddScoped<IAccountRepository, AccountRepository>();
+			services.AddScoped<IAccountBusiness, AccountBusiness>();
 
-		    // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-			{
-				configuration.RootPath = "ClientApp/dist";
-			});
+			// In production, the Angular files will be served from this directory
+			services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/dist");
 
-		    //AddBlobStorageFile(keyVaultClient);
-        }
+			//AddBlobStorageFile(keyVaultClient);
+		}
 
-	    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
 			if (env.IsDevelopment())
@@ -140,19 +138,16 @@ namespace AngularLastFMWebApi
 			app.UseSpaStaticFiles();
 			app.UseSwagger();
 
-			app.UseSwaggerUI(c =>
-			{
-				c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-			});
+			app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
 
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
+			app.UseCors(x => x
+				.AllowAnyOrigin()
+				.AllowAnyMethod()
+				.AllowAnyHeader());
 
-            app.UseAuthentication();
+			app.UseAuthentication();
 
-            app.UseMvc(routes =>
+			app.UseMvc(routes =>
 			{
 				routes.MapRoute(
 					name: "default",
@@ -161,9 +156,6 @@ namespace AngularLastFMWebApi
 
 			app.UseSpa(spa =>
 			{
-				// To learn more about options for serving an Angular SPA from ASP.NET Core,
-				// see https://go.microsoft.com/fwlink/?linkid=864501
-
 				spa.Options.SourcePath = "ClientApp";
 
 				if (env.IsDevelopment())
@@ -173,30 +165,30 @@ namespace AngularLastFMWebApi
 			});
 		}
 
-	    private void AddBlobStorageFile(KeyVaultClient keyVaultClient)
-	    {
-	        var storageSecret = GetSecretValueFromKeyVault(keyVaultClient, "AzureBlobStorageConnectionString");
-            var storageContainerSecret = GetSecretValueFromKeyVault(keyVaultClient, "AzureBlobStorageContainerName");
+		private void AddBlobStorageFile(KeyVaultClient keyVaultClient)
+		{
+			var storageSecret = GetSecretValueFromKeyVault(keyVaultClient, "AzureBlobStorageConnectionString");
+			var storageContainerSecret = GetSecretValueFromKeyVault(keyVaultClient, "AzureBlobStorageContainerName");
 
-	        AzureBlobStorage storage = new AzureBlobStorage(new AzureBlobSetings(
-	            storageConnectionString: storageSecret,
-	            containerName: storageContainerSecret));
-	        var (localFileName, sourceFile) = StartupInfoFileHelper.CreateStartupFile();
-	        storage.UploadAsync(localFileName, sourceFile).GetAwaiter().GetResult();
-	    }
+			AzureBlobStorage storage = new AzureBlobStorage(new AzureBlobSetings(
+				storageConnectionString: storageSecret,
+				containerName: storageContainerSecret));
+			var (localFileName, sourceFile) = StartupInfoFileHelper.CreateStartupFile();
+			storage.UploadAsync(localFileName, sourceFile).GetAwaiter().GetResult();
+		}
 
-	    private string GetSecretValueFromKeyVault(KeyVaultClient keyVaultClient, string keyVaultUri)
-	    {
-	        var storageSecret = string.Empty;
+		private string GetSecretValueFromKeyVault(KeyVaultClient keyVaultClient, string keyVaultUri)
+		{
+			var storageSecret = string.Empty;
 
-            var storageVaultUri = Configuration.GetSection(keyVaultUri).Value;
-	        if (!string.IsNullOrWhiteSpace(storageVaultUri))
-	        {
-	            var storageSecretResult = keyVaultClient.GetSecretAsync(storageVaultUri).GetAwaiter().GetResult();
-	            storageSecret = storageSecretResult.Value;
-	        }
-            
-	        return storageSecret;
-	    }
-    }
+			var storageVaultUri = Configuration.GetSection(keyVaultUri).Value;
+			if (!string.IsNullOrWhiteSpace(storageVaultUri))
+			{
+				var storageSecretResult = keyVaultClient.GetSecretAsync(storageVaultUri).GetAwaiter().GetResult();
+				storageSecret = storageSecretResult.Value;
+			}
+
+			return storageSecret;
+		}
+	}
 }

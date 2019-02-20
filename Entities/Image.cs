@@ -6,7 +6,7 @@ namespace Entities
 	/// The image entity.
 	/// </summary>
 	public class Image
-    {
+	{
 		/// <summary>
 		/// Gets or sets the image URL.
 		/// </summary>

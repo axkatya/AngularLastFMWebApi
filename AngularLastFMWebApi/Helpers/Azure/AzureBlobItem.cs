@@ -6,13 +6,15 @@ namespace AngularLastFMWebApi.Azure
 	{
 		public AzureBlobItem(IListBlobItem item)
 		{
-			this.Item = item;
+			Item = item;
 		}
 
 		public IListBlobItem Item { get; }
 
 		public bool IsBlockBlob => Item.GetType() == typeof(CloudBlockBlob);
+
 		public bool IsPageBlob => Item.GetType() == typeof(CloudPageBlob);
+
 		public bool IsDirectory => Item.GetType() == typeof(CloudBlobDirectory);
 
 		public string BlobName => IsBlockBlob ? ((CloudBlockBlob)Item).Name :

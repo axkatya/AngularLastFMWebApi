@@ -108,7 +108,7 @@ body {
 }
 
   .btn:hover {
-    background-color: #c1cfea;
+	background-color: #c1cfea;
   }
 
 .container__list {
@@ -118,7 +118,7 @@ body {
 
 @media screen and (max-width: 600px) {
   .tablist a{
-    float: none;
-    width: 100%;
+	float: none;
+	width: 100%;
   }
 }

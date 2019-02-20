@@ -1,58 +1,58 @@
 <div *ngIf="artist">
 
   <div class="card__itemimage" *ngIf="largeImage">
-    <img src="{{ largeImage['#text']}}" />
-    <app-favorite-button (toggle)="onClickFavoriteButton()" [isFavorite]='isFavorite'></app-favorite-button>
+	<img src="{{ largeImage['#text']}}" />
+	<app-favorite-button (toggle)="onClickFavoriteButton()" [isFavorite]='isFavorite'></app-favorite-button>
   </div>
 
   <div>
-    <div class="card__itemname">
-      {{artist.name}}
-    </div>
+	<div class="card__itemname">
+	  {{artist.name}}
+	</div>
 
-    <div class="card__iteminfo">
-      <a href={{artist.url}}>Link to LastFM</a>
+	<div class="card__iteminfo">
+	  <a href={{artist.url}}>Link to LastFM</a>
 
-      <div *ngIf="artist.bio">
-        <p class="card__itemsubtitle">
-          Biography
-        </p>
-        <div>
-          <p class="card__itemsubtitle">
-            Summary
-          </p>
-          <p>
-            {{artist.bio?.summary}}
-          </p>
-        </div>
-      </div>
-      <div>
-        <p class="card__itemsubtitle">
-          Content
-        </p>
-        <p>
-          {{artist.bio?.content}}
-        </p>
-      </div>
-    </div>
+	  <div *ngIf="artist.bio">
+		<p class="card__itemsubtitle">
+		  Biography
+		</p>
+		<div>
+		  <p class="card__itemsubtitle">
+			Summary
+		  </p>
+		  <p>
+			{{artist.bio?.summary}}
+		  </p>
+		</div>
+	  </div>
+	  <div>
+		<p class="card__itemsubtitle">
+		  Content
+		</p>
+		<p>
+		  {{artist.bio?.content}}
+		</p>
+	  </div>
+	</div>
 
-    <div *ngIf="topTracks">
-      <p class="card__itemsubtitle">
-        Top Tracks
-      </p>
+	<div *ngIf="topTracks">
+	  <p class="card__itemsubtitle">
+		Top Tracks
+	  </p>
 
-      <app-track-list [tracks]="topTracks"></app-track-list>
-    </div>
+	  <app-track-list [tracks]="topTracks"></app-track-list>
+	</div>
 
-    <div *ngIf="topAlbums">
-      <p class="card__itemsubtitle">
-        Top Albums
-      </p>
+	<div *ngIf="topAlbums">
+	  <p class="card__itemsubtitle">
+		Top Albums
+	  </p>
 
-      <app-album-list [albums]="topAlbums"></app-album-list>
+	  <app-album-list [albums]="topAlbums"></app-album-list>
 
 
-    </div>
+	</div>
   </div>
 
 </div>

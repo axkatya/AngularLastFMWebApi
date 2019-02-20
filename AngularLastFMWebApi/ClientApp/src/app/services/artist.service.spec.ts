@@ -7,27 +7,27 @@ let service: ArtistService;
 
 describe('ArtistService', () => {
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        ArtistService,
-        MockBackend,
-        BaseRequestOptions,
-        {
-          provide: Http,
-          useFactory: (mockBackend: MockBackend, defaultOptions: RequestOptions) => {
-            return new Http(mockBackend, defaultOptions);
-          },
-          deps: [MockBackend, BaseRequestOptions]
-        }
-      ]
-    });
+	TestBed.configureTestingModule({
+	  providers: [
+		ArtistService,
+		MockBackend,
+		BaseRequestOptions,
+		{
+		  provide: Http,
+		  useFactory: (mockBackend: MockBackend, defaultOptions: RequestOptions) => {
+			return new Http(mockBackend, defaultOptions);
+		  },
+		  deps: [MockBackend, BaseRequestOptions]
+		}
+	  ]
+	});
   });
 
   beforeEach(() => {
-    service = TestBed.get(ArtistService);
+	service = TestBed.get(ArtistService);
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+	expect(service).toBeTruthy();
   });
 });

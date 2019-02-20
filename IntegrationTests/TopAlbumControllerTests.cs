@@ -15,12 +15,12 @@ namespace IntegrationTests
 		public async System.Threading.Tasks.Task Get_WhenCalled_ReturnsAllItemsAsync()
 		{
 			// Act
-			var response = await _fixture.Client.GetAsync("/api/topalbum/cher");
+			var response = await _fixture.Client.GetAsync("/api/topalbum/cher").ConfigureAwait(false);
 
 			// Assert
 			response.EnsureSuccessStatusCode();
 
-			var responseString = await response.Content.ReadAsStringAsync();
+			var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 			Assert.Contains("Believe", responseString);
 		}
 	}

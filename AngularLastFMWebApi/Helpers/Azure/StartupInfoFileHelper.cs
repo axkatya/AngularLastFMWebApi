@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 
-namespace AngularLastFMWebApi.Azure
+namespace AngularLastFMWebApi.Helpers.Azure
 {
-	public class StartupInfoFileHelper
-    {
+	public static class StartupInfoFileHelper
+	{
 		/// <summary>
 		/// Creates the startup file.
 		/// </summary>

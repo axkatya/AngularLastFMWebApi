@@ -10,6 +10,6 @@ export class RouterLinkDirectiveStub {
   navigatedTo: any = null;
 
   onClick() {
-    this.navigatedTo = this.linkParams;
+	this.navigatedTo = this.linkParams;
   }
 }

@@ -12,15 +12,15 @@ namespace WebApiTests
 {
 	public class TopAlbumControllerTests
 	{
-		TopAlbumController _controller;
-	    readonly Mock<ILastFmServiceAgent> _lastFmServiceMock;
-	    readonly Mock<IFavoriteAlbumBusiness> _favoriteAlbumBusinessMock;
-	    readonly IEnumerable<TopAlbum> _mockAlbums;
+		private TopAlbumController _controller;
+		private readonly Mock<ILastFmServiceAgent> _lastFmServiceMock;
+		private readonly Mock<IFavoriteAlbumBusiness> _favoriteAlbumBusinessMock;
+		private readonly IEnumerable<TopAlbum> _mockAlbums;
 
 		public TopAlbumControllerTests(Mock<IFavoriteAlbumBusiness> favoriteAlbumBusinessMock)
 		{
-		    _favoriteAlbumBusinessMock = favoriteAlbumBusinessMock;
-		    _lastFmServiceMock = new Mock<ILastFmServiceAgent>();
+			_favoriteAlbumBusinessMock = favoriteAlbumBusinessMock;
+			_lastFmServiceMock = new Mock<ILastFmServiceAgent>();
 			_mockAlbums = new List<TopAlbum>
 			{
 				new TopAlbum { Name = "Love123", PlayCount = 123 },
@@ -36,7 +36,7 @@ namespace WebApiTests
 			_controller = new TopAlbumController(_lastFmServiceMock.Object, _favoriteAlbumBusinessMock.Object);
 
 			// Act
-			IActionResult actionResult = await _controller.Get("Cher");
+			IActionResult actionResult = await _controller.Get("Cher").ConfigureAwait(false);
 
 			// Assert
 			Assert.NotNull(actionResult);

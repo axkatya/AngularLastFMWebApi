@@ -6,23 +6,23 @@ import { AlbumService } from './album.service';
 
 describe('AlbumService', () => {
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        AlbumService,
-        MockBackend,
-        BaseRequestOptions,
-        {
-          provide: Http,
-          useFactory: (mockBackend: MockBackend, defaultOptions: RequestOptions) => {
-            return new Http(mockBackend, defaultOptions);
-          },
-          deps: [MockBackend, BaseRequestOptions]
-        }
-      ]
-    });
+	TestBed.configureTestingModule({
+	  providers: [
+		AlbumService,
+		MockBackend,
+		BaseRequestOptions,
+		{
+		  provide: Http,
+		  useFactory: (mockBackend: MockBackend, defaultOptions: RequestOptions) => {
+			return new Http(mockBackend, defaultOptions);
+		  },
+		  deps: [MockBackend, BaseRequestOptions]
+		}
+	  ]
+	});
   });
 
   it('should be created', inject([AlbumService], (service: AlbumService) => {
-    expect(service).toBeTruthy();
+	expect(service).toBeTruthy();
   }));
 });

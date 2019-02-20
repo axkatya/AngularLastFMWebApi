@@ -8,7 +8,7 @@ namespace ServiceAgent
 {
 	public class LastFmServiceAgent : ILastFmServiceAgent
 	{
-		HttpClient _client;
+		private readonly HttpClient _client;
 
 		public LastFmServiceAgent()
 		{
@@ -21,7 +21,7 @@ namespace ServiceAgent
 		public async Task<IEnumerable<Album>> GetAlbums(string albumName)
 		{
 			IEnumerable<Album> albums = new List<Album>();
-			var response = await _client.GetStringAsync("http://ws.audioscrobbler.com/2.0/?method=album.search&album=" + albumName + "&api_key=91c70ecd632c37f12855243d9526cc6f&format=json");
+			var response = await _client.GetStringAsync("http://ws.audioscrobbler.com/2.0/?method=album.search&album=" + albumName + "&api_key=91c70ecd632c37f12855243d9526cc6f&format=json").ConfigureAwait(false);
 			AlbumsSearchByNameResponse result = JsonConvert.DeserializeObject<AlbumsSearchByNameResponse>(response);
 			if (result != null)
 			{
@@ -34,7 +34,7 @@ namespace ServiceAgent
 		public async Task<Artist> GetArtist(string artistName)
 		{
 			Artist artist = new Artist();
-			var response = await _client.GetStringAsync("http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + artistName + "&api_key=91c70ecd632c37f12855243d9526cc6f&format=json");
+			var response = await _client.GetStringAsync("http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + artistName + "&api_key=91c70ecd632c37f12855243d9526cc6f&format=json").ConfigureAwait(false);
 			ArtistSearchByNameResponse result = JsonConvert.DeserializeObject<ArtistSearchByNameResponse>(response);
 			if (result != null)
 			{
